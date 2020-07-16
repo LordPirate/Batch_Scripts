@@ -1,0 +1,190 @@
+@ECHO off
+
+REM Set toggle between execution mode and debug mode
+IF /I "%1"=="Debug" (SET debug=ECHO) ELSE (SET debug=REM)
+
+%debug%                          - - - - - - - - - - - - - - -
+%debug%                         - -   D E B U G   M O D E   - -
+%debug%                          - - - - - - - - - - - - - - -
+%debug%.
+
+%debug% *******************************************************************************
+%debug%.
+%debug% [ SCRIPT NAME ] = ColorSchemes.bat
+%debug%.
+%debug% [ AUTHOR(S) ] = Gregory Barret Smith
+%debug%.
+%debug% [ DATE CREATED ] = 22 April 2014
+%debug%.
+%debug% [ DATE LAST MODIFIED ] = 23 April 2014
+%debug%.
+%debug% [ DESCRIPTION ] = This Windows shell script gives the user the option to
+%debug%                   customize the Windows command console's foreground and
+%debug%                   background colors to their choosing.
+%debug%.
+%debug% *******************************************************************************
+%debug%.
+
+%debug%              * * * * *                                 * * * * *
+%debug%             * * * * * * Script Initialization Section * * * * * *
+%debug%              * * * * *                                 * * * * *
+%debug%.
+
+%debug% Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003.
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+  GOTO :EOF
+ )
+%debug%.
+
+%debug% Set variable expansion to be delayed until execution time
+SETLOCAL ENABLEDELAYEDEXPANSION
+%debug%.
+
+%debug% Set title in Windows command console's title bar.
+TITLE= - - - - - - - - - - - - - SCREEN COLOR SCHEME MENU - - - - - - - - - - - - -
+%debug%.
+
+%debug%               * * * * *                           * * * * *
+%debug%              * * * * * * Main Processing Section * * * * * *
+%debug%               * * * * *                           * * * * *
+%debug%.
+
+%debug%    I NEED TO CREATE VARIABLES FOR BASE COLOR AND FLASH COLORS.
+%debug%     (I.E. ATTACK FLASH, DEFEND FLASH, ITEM FOUND FLASH, ETC)
+
+%debug% Creates a return point in the script.
+:CHOOSECOLOR
+
+  CLS
+
+  ECHO.
+  ECHO.
+  ECHO                    ^^!^^!^^!CUSTOMIZE YOUR SCREEN'S COLOR SCHEME^^!^^!^^!
+
+  FOR /L %%g IN (1,1,3) DO ECHO.
+
+  ECHO                           0 - [ DEFAULT ]
+  ECHO.
+  ECHO                           1 - [ YELLOW ON BLACK ]
+  ECHO.
+  ECHO                           2 - [ PURPLE ON WHITE ]
+  ECHO.
+  ECHO                           3 - [ GREY ON GREEN ]
+  ECHO.
+  ECHO                           SE - [ SAVE AND EXIT ]
+  ECHO.
+  ECHO.
+  ECHO     * NOTE: ADD A ZERO TO THE END OF ANY NUMBER TO GET THE REVERSE EFFECT *
+  ECHO.
+  ECHO.
+
+  SET /P COLORINPUT=                  WHAT COLOR SCHEME WOULD YOU LIKE? 
+  ECHO.
+
+  SET CHOSENCOLOR=%COLORINPUT:~,2%
+
+  IF /I %CHOSENCOLOR%==0  (
+
+    COLOR 07
+
+    GOTO :CHOOSECOLOR
+ )
+
+  IF /I %CHOSENCOLOR%==00  (
+
+    COLOR 70
+
+    GOTO :CHOOSECOLOR
+  )
+
+  IF %CHOSENCOLOR%==1  (
+
+    COLOR 0E
+
+    GOTO :CHOOSECOLOR
+  )
+
+  IF %CHOSENCOLOR%==10  (
+
+    COLOR E0
+
+    GOTO :CHOOSECOLOR
+  )
+
+  IF %CHOSENCOLOR%==2  (
+
+    COLOR 5F
+
+    GOTO :CHOOSECOLOR
+ )
+
+  IF %CHOSENCOLOR%==20  (
+
+    COLOR F5
+
+    GOTO :CHOOSECOLOR
+  )
+
+  IF %CHOSENCOLOR%==3  (
+
+    COLOR 27
+
+    GOTO :CHOOSECOLOR
+ )
+
+  IF %CHOSENCOLOR%==30  (
+
+    COLOR 72
+
+    GOTO :CHOOSECOLOR
+  )
+
+  IF /I %CHOSENCOLOR%==SE  (
+
+    CLS
+
+    FOR /L %%g IN (1,1,7) DO ECHO.
+
+    ECHO                            ^^!^^!^^! COLOR SCHEME SAVED ^^!^^!^^!
+    ECHO.
+    ECHO                 - PRESS ANY KEY TO RETURN TO THE OPTIONS MENU -
+
+    PAUSE >NUL
+
+    %debug% Terminates script execution.
+    GOTO :EOF
+
+  ) ELSE  (
+
+    GOTO :INVALIDOPTION
+  )
+
+%debug% Terminates script execution.
+GOTO :EOF
+
+%debug% Creates a return point in the script.
+:INVALIDOPTION
+
+  CLS
+
+  FOR /L %%g IN (1,1,9) DO ECHO.
+
+  ECHO                                - INVALID OPTION -
+  ECHO.
+  ECHO             PLEASE CHOOSE ONE OF THE OPTIONS FROM THE LIST PROVIDED.
+
+  FOR /L %%g IN (1,1,3) DO ECHO.
+
+  ECHO                 - PRESS ANY KEY TO RETURN TO COLOR SCHEME MENU -
+
+  PAUSE >NUL
+
+  GOTO :CHOOSECOLOR
+
+%debug% Terminates script execution.
+GOTO :EOF
