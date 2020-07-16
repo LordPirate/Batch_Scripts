@@ -1,0 +1,434 @@
+@ECHO off
+
+REM Allows user to toggle between execution mode and debug mode
+IF /I "%1"=="debug" (SET debug=ECHO) ELSE (SET debug=REM)
+
+%debug%.
+%debug%                          - - - - - - - - - - - - - - -
+%debug%                         - -   D E B U G   M O D E   - -
+%debug%                          - - - - - - - - - - - - - - -
+%debug%.
+
+%debug% *******************************************************************************
+%debug%.
+%debug% [ SCRIPT NAME ] = TICTACTOE.bat
+%debug%.
+%debug% [ AUTHOR(S) ] = Gregory Barret Smith
+%debug%.
+%debug% [ DATE CREATED ] = 23 April 2014
+%debug%.
+%debug% [ DATE LAST MODIFIED ] = 24 April 2014
+%debug%.
+%debug% [ DESCRIPTION ] = This Windows shell script allows two players to play the
+%debug%                   classic game of TIC-TAC-TOE.
+%debug%                   
+%debug%.
+%debug% *******************************************************************************
+%debug%.
+
+%debug%              * * * * *                                 * * * * *
+%debug%             * * * * * * Script Initialization Section * * * * * *
+%debug%              * * * * *                                 * * * * *
+%debug%.
+
+%debug% Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+  GOTO :EOF
+ )
+%debug%.
+
+%debug% Set variable expansion to be delayed until execution time
+SETLOCAL ENABLEDELAYEDEXPANSION
+%debug%.
+
+%debug% Set the color scheme to yellow on black
+COLOR 0E
+%debug%.
+
+%debug% Display title in Windows command console's title bar
+TITLE = - - - - - - - - - - - - - - T I C - T A C - T O E - - - - - - - - - - - - - -
+%debug%.
+
+%debug% Clear the display
+CLS
+%debug%.
+
+%debug%               * * * * *                           * * * * *
+%debug%              * * * * * * Main Processing Section * * * * * *
+%debug%               * * * * *                           * * * * *
+%debug%.
+
+:StartOver
+
+  SET Player=X
+  SET Winner=None
+  SET /A NoMoves = 0
+  SET reply=
+
+  CALL :InitializeBlanks
+
+  CALL :Welcome
+
+  IF /I "%reply%" == "" CLS & GOTO :StartOver
+  IF /I %reply% == Play CLS & CALL :Play
+  IF /I %reply% == Quit CLS & GOTO :EOF & EXIT
+  IF /I %reply% == Help CLS & CALL :Help
+  IF /I %reply% == About CLS & CALL :About
+  GOTO :StartOver
+
+GOTO :EOF
+
+%debug%             * * * * *                                    * * * * *
+%debug%            * * * * * * Procedure and Subroutine Section * * * * * *
+%debug%             * * * * *                                    * * * * *
+%debug%.
+
+:InitializeBlanks
+
+  SET A1= 
+  SET A2= 
+  SET A3= 
+
+  SET B1= 
+  SET B2= 
+  SET B3= 
+
+  SET C1= 
+  SET C2= 
+  SET C3= 
+
+GOTO :EOF
+
+:Welcome
+
+  CLS
+
+  FOR /L %%g IN (1,1,8) DO ECHO.
+
+  ECHO                   W E L C O M E  T O  T I C - T A C - T O E
+  ECHO.
+  ECHO.
+  ECHO                           Windows shell script style!
+
+  FOR /L %%g IN (1,1,9) DO ECHO.
+
+  ECHO                      Options: [Play] [Quit] [Help] [About]
+  ECHO.
+
+  SET /p reply=                            Enter selection: 
+
+GOTO :EOF
+
+:DisplayBoard
+
+  CLS
+
+  ECHO.
+  ECHO.
+  ECHO     T I C - T A C - T O E
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO         1     2     3
+  ECHO                                     Rules:
+  ECHO.
+  ECHO            ^|     ^|                1. Player X always goes first.
+  ECHO A       %A1%  ^|  %A2%  ^|  %A3%
+  ECHO       _____^|_____^|_____           2. To make a move enter the coordinates
+  ECHO            ^|     ^|                   of the appropriate square.
+  ECHO B       %B1%  ^|  %B2%  ^|  %B3%
+  ECHO       _____^|_____^|_____           3. Remember to switch turns when
+  ECHO            ^|     ^|                   instructed by the game.
+  ECHO C       %C1%  ^|  %C2%  ^|  %C3%
+  ECHO            ^|     ^|
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO       Player %Player%'s turn: 
+  ECHO.
+
+GOTO :EOF
+
+:Help
+
+  CLS
+
+  FOR /L %%g IN (1,1,5) DO ECHO.
+
+  ECHO                                HELP INSTRUCTIONS
+  ECHO.
+  ECHO.
+  ECHO  This is a text-based implementation of the TIC-TAC-TOE game. In this game the
+  ECHO  computer controls the action. Player X always goes first. The game tells each
+  ECHO  player when it is his turn. When prompted to take a turn players must type the
+  ECHO  coordinates of the square into which they wish to place their marker (i.e. the
+  ECHO  X or O character). For example, to place a marker in the upper left hand box,
+  ECHO  players would enter A1.
+  ECHO.
+  ECHO  The game tracks the progress of each game and will automatically determine
+  ECHO  when a game has been won, lost, or tied.
+
+  FOR /L %%g IN (1,1,6) DO ECHO.
+
+  PAUSE
+
+GOTO :EOF
+
+:About
+
+  CLS
+
+  FOR /L %%g IN (1,1,7) DO ECHO.
+
+  ECHO                           About The TIC-TAC-TOE Game
+  ECHO.
+  ECHO                                   Written By
+  ECHO.
+  ECHO                              Gregory Barret Smith
+  ECHO.
+  ECHO                            ------------------------
+  ECHO.
+  ECHO                                 Copyright 2014
+
+  FOR /L %%g IN (1,1,7) DO ECHO.
+
+  PAUSE
+
+GOTO :EOF
+
+
+:Play
+
+  IF "%Winner%"=="X"  (
+    CALL :DisplayGameResults
+    PAUSE
+    GOTO :StartOver
+  )
+
+  IF "%Winner%"=="O"  (
+    CALL :DisplayGameResults
+    PAUSE
+    GOTO :StartOver
+  )
+
+  IF "%Winner%"=="Nobody"  (
+    CALL :DisplayGameResults
+    PAUSE
+    GOTO :StartOver
+  )
+
+  CALL :DisplayBoard
+
+  SET /p response=      Select a box: 
+
+  CALL :ValidateResponse
+
+  IF %ValidMove%==True  (
+    SET /A NoMoves = NoMoves += 1
+    CALL :FillInSquare
+  ) ELSE  (
+    CLS
+    FOR /L %%g IN (1,1,11) DO ECHO.
+    ECHO                         Invalid move. Please try again!
+    FOR /L %%g IN (1,1,11) DO ECHO.
+    PAUSE
+  )
+
+  IF %NoMoves% == 9  (
+    SET Winner=Nobody
+  ) ELSE  (
+    CALL :SeeIfWon
+  )
+
+  IF %ValidMove%==True  (
+    IF "%Player%"=="X"  (
+      SET Player=O
+    ) ELSE  (
+      SET Player=X
+    )
+  )
+
+  GOTO :Play
+
+GOTO :EOF
+
+:ValidateResponse
+
+  SET ValidMove=True
+
+  IF /I "%response%" == ""  (
+    SET ValidMove=False
+    GOTO :EOF
+  )
+
+  IF /I NOT %response%==A1  (
+    IF /I NOT %response%==A2  (
+      IF /I NOT %response%==A3  (
+        IF /I NOT %response%==B1  (
+          IF /I NOT %response%==B2  (
+            IF /I NOT %response%==B3  (
+              IF /I NOT %response%==C1  (
+                IF /I NOT %response%==C2  (
+                  IF /I NOT %response%==C3  (
+                    SET ValidMove=False
+                    GOTO :EOF
+                  )
+                )
+              )
+            )
+          )
+        )      )
+    )
+  )
+
+  IF /I %response%==A1  (
+    IF NOT "%A1%"==" "  (
+      SET ValidMove=False
+    )
+  )
+
+  IF /I %response%==A2  (
+    IF NOT "%A2%"==" "  (
+      SET ValidMove=False
+    )
+  )
+
+  IF /I %response%==A3  (
+    IF NOT "%A3%"==" "  (
+      SET ValidMove=False
+    )
+  )
+
+  IF /I %response%==B1  (
+    IF NOT "%B1%"==" "  (
+      SET ValidMove=False
+    )
+  )
+
+  IF /I %response%==B2  (
+    IF NOT "%B2%"==" "  (
+      SET ValidMove=False
+    )
+  )
+
+  IF /I %response%==B3  (
+    IF NOT "%B3%"==" "  (
+      SET ValidMove=False
+    )
+  )
+
+  IF /I %response%==C1  (
+    IF NOT "%C1%"==" "  (
+      SET ValidMove=False
+    )
+  )
+
+  IF /I %response%==C2  (
+    IF NOT "%C2%"==" "  (
+      SET ValidMove=False
+    )
+  )
+
+  IF /I %response%==C3  (
+    IF NOT "%C3%"==" "  (
+      SET ValidMove=False
+    )
+  )
+
+GOTO :EOF
+
+:FillInSquare
+
+  IF /I %response%==A1 SET A1=%Player%
+  IF /I %response%==A2 SET A2=%Player%
+  IF /I %response%==A3 SET A3=%Player%
+  IF /I %response%==B1 SET B1=%Player%
+  IF /I %response%==B2 SET B2=%Player%
+  IF /I %response%==B3 SET B3=%Player%
+  IF /I %response%==C1 SET C1=%Player%
+  IF /I %response%==C2 SET C2=%Player%
+  IF /I %response%==C3 SET C3=%Player%
+
+GOTO :EOF
+
+:DisplayGameResults
+
+  CLS
+
+  SET messagetext=Tie - No Winner
+
+  IF "%wINNER%"=="X" SET messagetext=Player X has won the game!!!
+  IF "%wINNER%"=="O" SET messagetext=Player O has won the game!!!
+
+  FOR /L %%g IN (1,1,5) DO ECHO.
+
+  ECHO            ^|     ^|
+  ECHO         %A1%  ^|  %A2%  ^|  %A3%                E N D  O F  G A M E
+  ECHO       _____^|_____^|_____
+  ECHO            ^|     ^|
+  ECHO         %B1%  ^|  %B2%  ^|  %B3%                 %messagetext%
+  ECHO       _____^|_____^|_____
+  ECHO            ^|     ^|
+  ECHO         %C1%  ^|  %C2%  ^|  %C3%
+  ECHO            ^|     ^|
+
+  FOR /L %%g IN (1,1,9) DO ECHO.
+
+GOTO :EOF
+
+:SeeIfWon
+
+  IF /I "%A1%"=="%Player%"  (
+    IF /I "%A2%"=="%Player%"  (
+      IF /I "%A3%"=="%Player%"  (SET Winner=%Player%)
+    )
+  )
+
+  IF /I "%B1%"=="%Player%"  (
+    IF /I "%B2%"=="%Player%"  (
+      IF /I "%B3%"=="%Player%"  (SET Winner=%Player%)
+    )
+  )
+
+  IF /I "%C1%"=="%Player%"  (
+    IF /I "%C2%"=="%Player%"  (
+      IF /I "%C3%"=="%Player%"  (SET Winner=%Player%)
+    )
+  )
+
+  IF /I "%A1%"=="%Player%"  (
+    IF /I "%B2%"=="%Player%"  (
+      IF /I "%C3%"=="%Player%"  (SET Winner=%Player%)
+    )
+  )
+
+  IF /I "%A3%"=="%Player%"  (
+    IF /I "%B2%"=="%Player%"  (
+      IF /I "%C1%"=="%Player%"  (SET Winner=%Player%)
+    )
+  )
+
+  IF /I "%A1%"=="%Player%"  (
+    IF /I "%B1%"=="%Player%"  (
+      IF /I "%C1%"=="%Player%"  (SET Winner=%Player%)
+    )
+  )
+
+  IF /I "%A2%"=="%Player%"  (
+    IF /I "%B2%"=="%Player%"  (
+      IF /I "%C2%"=="%Player%"  (SET Winner=%Player%)
+    )
+  )
+
+  IF /I "%A3%"=="%Player%"  (
+    IF /I "%B3%"=="%Player%"  (
+      IF /I "%C3%"=="%Player%"  (SET Winner=%Player%)
+    )
+  )
+
+GOTO :EOF
