@@ -1,0 +1,734 @@
+@ECHO off
+
+REM ******************************************************************************
+REM
+REM Script Name: SixMillion.bat
+REM Author: Vearmi Pone
+REM Date: 04-11-2014
+REM
+REM Description: This Windows shell script game tests the player's knowledge of
+REM the 1970's Six-Million-Dollar Man TV show.
+REM
+REM ******************************************************************************
+
+REM  -=-=- Script Initialization Section -=-=-
+
+REM Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+  GOTO :EOF
+ )
+
+REM Set the color scheme to yellow on black
+COLOR 0E
+
+REM Clear the screen
+CLS
+
+REM Set title of the window
+TITLE = The S I X  M I L L I O N  D O L L A R  Q U I Z
+
+REM Set location of final report
+SET reportloc=C:\TEMP\Quiz.txt
+
+REM  -=-=- Main Processing Section -=-=-
+
+REM Creates a return point
+:StartGame
+
+  REM Set initial number of right or wrong answers to zero
+  SET /A Right = 0
+  SET /A Wrong = 0
+
+  REM Clear the screen
+  CLS
+
+  REM Sets default value so Enter doesn't return error
+  SET reply=default
+
+  REM Display the main screen
+
+  REM Creates 7 blank lines
+  FOR /L %%a IN (1,1,7) DO ECHO.
+
+  REM Displays game title on main screen
+  ECHO             S I X  M I L L I O N  D O L L A R  Q U I Z
+
+  REM Creates 13 blank lines
+  FOR /L %%a IN (1,1,13) DO ECHO.
+
+  REM Displays text menu on main screen
+  ECHO [Play]  [Exit]  [Help]  [About]
+  ECHO.
+
+  REM Prompts player to select menu option
+  SET /P reply= Option: 
+
+  REM Determine what user wants to do based on input
+  IF /I "%reply%" == "" CLS & GOTO :StartGame
+  IF /I %reply% == Play CLS & GOTO :Play
+  IF /I %reply% == Exit CLS & GOTO :EOF
+  IF /I %reply% == Help CLS & GOTO :Help
+  IF /I %reply% == About CLS & GOTO :About
+
+  REM Return to main screen if input was not valid menu option
+  CLS & GOTO :StartGame
+
+REM Creates a return point
+:Help
+
+  REM Display the Help screen
+
+  REM Creates 3 blank lines
+  FOR /L %%a IN (1,1,3) DO ECHO.
+
+  REM Displays main Help text
+  ECHO                           HELP INSTRUCTIONS
+  ECHO.
+  ECHO In this game, you will be presented with a series of questions
+  ECHO designed to test your knowledge of The Six Million Dollar Man TV series.
+  ECHO Some questions are "fill in the blank", some are True/False, and some are
+  ECHO Yes/No. Your score will be presented after you have answered all the
+  ECHO questions.
+  ECHO.
+  ECHO.
+  ECHO -------------------------------------------------------------------------
+  ECHO.
+  ECHO.
+  ECHO 1. Type Play and press Enter to begin the game.
+  ECHO.
+  ECHO 2. Type Exit and press Enter to stop playing the game.
+  ECHO.
+  ECHO 3. Type About and press Enter to learn more about the game and its author.
+
+  REM Creates 3 blank lines
+  FOR /L %%a IN (1,1,3) DO ECHO.
+
+  REM Waits for user to press any key
+  PAUSE
+
+  REM Clear the screen
+  CLS
+
+  REM Return to main screen
+  GOTO :StartGame
+
+REM Creates a return point
+:About
+
+  REM Display the About screen
+
+  REM Creates 4 blank lines
+  FOR /L %%a IN (1,1,4) DO ECHO.
+
+  REM Displays main About text
+  ECHO                   About The Six-Million-Dollar Quiz
+  ECHO.
+  ECHO                               Written by
+  ECHO.
+  ECHO                          Gregory Barret Smith
+  ECHO.
+  ECHO                        ------------------------
+  ECHO.
+  ECHO                             Copyright 2014
+
+  REM Creates 10 blank lines
+  FOR /L %%a IN (1,1,10) DO ECHO.
+
+  REM Waits for user to press any key
+  PAUSE
+
+  REM Clear the screen
+  CLS
+
+  REM Return to main screen
+  GOTO :StartGame
+
+REM Creates a return point
+:Play
+
+  REM Displays question screens
+
+  REM Creates 5 blank lines
+  FOR /L %%a IN (1,1,5) DO ECHO.
+
+  REM Sets default value so Enter doesn't return error
+  SET quest1=default
+
+  REM
+  SET /P quest1= 1. What was the Six-Million-Dollar Man's first name? 
+
+  REM Display incorrect answer
+  IF /I NOT %quest1% == Steve  (
+    ECHO.
+    ECHO.
+    ECHO Sorry, the correct answer is Steve.
+    ECHO.
+    ECHO.
+    ECHO.
+  )
+
+  REM Waits for user to press any key
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  PAUSE
+
+  REM Clear the screen
+  CLS
+
+  REM Creates 5 blank lines
+  FOR /L %%a IN (1,1,5) DO ECHO.
+
+  REM
+  SET /P quest2= 2. Did he have 1 or 2 bionic arms? 
+
+  REM Display incorrect answer
+  IF /I NOT %quest2% == 1  (
+    ECHO.
+    ECHO.
+    ECHO Sorry, the correct answer is 1.
+    ECHO.
+    ECHO.
+    ECHO.
+  )
+
+  REM Waits for user to press any key
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  PAUSE
+
+  REM Clear the screen
+  CLS
+
+  REM Creates 5 blank lines
+  FOR /L %%a IN (1,1,5) DO ECHO.
+
+  REM
+  SET /P quest3= 3. Did he have a bionic eye or ear? 
+
+  REM Display incorrect answer
+  IF /I NOT %quest3% == Eye  (
+    ECHO.
+    ECHO.
+    ECHO Sorry, the correct answer is Eye.
+    ECHO.
+    ECHO.
+    ECHO.
+  )
+
+  REM Waits for user to press any key
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  PAUSE
+
+  REM Clear the screen
+  CLS
+
+  REM Creates 5 blank lines
+  FOR /L %%a IN (1,1,5) DO ECHO.
+
+  REM
+  SET /P quest4= 4. What was his real last name? 
+
+  REM Display incorrect answer
+  IF /I NOT %quest4% == Majors  (
+    ECHO.
+    ECHO.
+    ECHO Sorry, the correct answer is Majors.
+    ECHO.
+    ECHO.
+    ECHO.
+  )
+
+  REM Waits for user to press any key
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  PAUSE
+
+  REM Clear the screen
+  CLS
+
+  REM Creates 5 blank lines
+  FOR /L %%a IN (1,1,5) DO ECHO.
+
+  REM
+  SET /P quest5= 5. What was the first name of the Six-Million-Dollar Man's real wife? 
+
+  REM Display incorrect answer
+  IF /I NOT %quest5% == Farrah  (
+    ECHO.
+    ECHO.
+    ECHO Sorry, the correct answer is Farrah.
+    ECHO.
+    ECHO.
+    ECHO.
+  )
+
+  REM Waits for user to press any key
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  PAUSE
+
+  REM Clear the screen
+  CLS
+
+  REM Creates 5 blank lines
+  FOR /L %%a IN (1,1,5) DO ECHO.
+
+  REM
+  SET /P quest6= 6. What was the last name of the actress who played the bionic woman? 
+
+  REM Display incorrect answer
+  IF /I NOT %quest6% == Wagner  (
+    ECHO.
+    ECHO.
+    ECHO Sorry, the correct answer is Wagner.
+    ECHO.
+    ECHO.
+    ECHO.
+  )
+
+  REM Waits for user to press any key
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  PAUSE
+
+  REM Clear the screen
+  CLS
+
+  REM Creates 5 blank lines
+  FOR /L %%a IN (1,1,5) DO ECHO.
+
+  REM
+  SET /P quest7= 7. Did the bionic woman have a bionic eye or bionic ear? 
+
+  REM Display incorrect answer
+  IF /I NOT %quest7% == Ear  (
+    ECHO.
+    ECHO.
+    ECHO Sorry, the correct answer is Ear.
+    ECHO.
+    ECHO.
+    ECHO.
+  )
+
+  REM Waits for user to press any key
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  PAUSE
+
+  REM Clear the screen
+  CLS
+
+  REM Creates 5 blank lines
+  FOR /L %%a IN (1,1,5) DO ECHO.
+
+  REM
+  SET /P quest8= 8. T/F: The bionic woman cost more than the Six-Million-Dollar Man. 
+
+  REM Display incorrect answer
+  IF /I NOT %quest8% == F  (
+    ECHO.
+    ECHO.
+    ECHO Sorry, the correct answer is F.
+    ECHO.
+    ECHO.
+    ECHO.
+  )
+
+  REM Waits for user to press any key
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  PAUSE
+
+  REM Clear the screen
+  CLS
+
+  REM Creates 5 blank lines
+  FOR /L %%a IN (1,1,5) DO ECHO.
+
+  REM
+  SET /P quest9= 9. T/F: The Six-Million-Dollar Man was known as Heath on the "Big Valley." 
+
+  REM Display incorrect answer
+  IF /I NOT %quest9% == T  (
+    ECHO.
+    ECHO.
+    ECHO Sorry, the correct answer is T.
+    ECHO.
+    ECHO.
+    ECHO.
+  )
+
+  REM Waits for user to press any key
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  PAUSE
+
+  REM Clear the screen
+  CLS
+
+  REM Creates 5 blank lines
+  FOR /L %%a IN (1,1,5) DO ECHO.
+
+  REM Sets default value so Enter doesn't return error
+  SET quest10=default
+
+  REM
+  SET /P quest10= 10. Yes/No: Did the Six-Million-Dollar Man ever marry the bionic woman? 
+
+  REM Display incorrect answer
+  IF /I NOT %quest10% == Yes  (
+    ECHO.
+    ECHO.
+    ECHO Sorry, the correct answer is Yes.
+    ECHO.
+    ECHO.
+    ECHO.
+  )
+
+  REM Waits for user to press any key
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  PAUSE
+
+  REM Clear the screen
+  CLS
+
+  REM Create TEMP folder in C:\ if it doesn't exist
+  IF NOT EXIST C:\TEMP\.  (
+    MKDIR C:\TEMP
+  )
+
+  REM Create report or overwrite if exists
+  ECHO. > %reportloc%
+
+  REM Begin appending game results to report
+  ECHO The Six-Million-Dollar-Man Quiz Score Card Report >> %reportloc%
+  ECHO. >> %reportloc%
+  ECHO. >> %reportloc%
+
+  REM Determine right or wrong answers and append to report accordingly
+  IF /I %quest1% == Steve  (
+    ECHO. >> %reportloc%
+    ECHO 1. What was the Six-Million-Dollar Man's first name? >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: Steve - Correct! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Right += 1
+  ) ELSE  (
+    ECHO. >> %reportloc%
+    ECHO 1. What was the Six-Million-Dollar Man's first name? >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: %quest1% - Incorrect! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Wrong += 1
+  )
+
+  IF /I %quest2% == 1  (
+    ECHO. >> %reportloc%
+    ECHO 2. Did he have 1 or 2 bionic arms >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: 1 - Correct! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Right += 1
+  ) ELSE  (
+    ECHO. >> %reportloc%
+    ECHO 2. Did he have one or two bionic arms? >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: %quest2% - Incorrect! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Wrong += 1
+  )
+
+  IF /I %quest3% == Eye  (
+    ECHO. >> %reportloc%
+    ECHO 3. Did he have a bionic eye or ear? >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: Eye - Correct! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Right += 1
+  ) ELSE  (
+    ECHO. >> %reportloc%
+    ECHO 3. Did he have a bionic eye or ear? >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: %quest3% - Incorrect! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Wrong += 1
+  )
+
+  IF /I %quest4% == Majors  (
+    ECHO. >> %reportloc%
+    ECHO 4. What was his real last name? >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: Majors - Correct! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Right += 1
+  ) ELSE  (
+    ECHO. >> %reportloc%
+    ECHO 4. What was his real last name? >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: %quest4% - Incorrect! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Wrong += 1
+  )
+
+  IF /I %quest5% == Farrah  (
+    ECHO. >> %reportloc%
+    ECHO 5. What was the first name of the Six-Million-Dollar Man's real wife? >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: Farrah - Correct! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Right += 1
+  ) ELSE  (
+    ECHO. >> %reportloc%
+    ECHO 5. What was the first name of the Six-Million-Dollar Man's real wife? >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: %quest5% - Incorrect! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Wrong += 1
+  )
+
+  IF /I %quest6% == Wagner  (
+    ECHO. >> %reportloc%
+    ECHO 6. What was the last name of the actress who played the bionic woman? >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: Wagner - Correct! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Right += 1
+  ) ELSE  (
+    ECHO. >> %reportloc%
+    ECHO 6. What was the last name of the actress who played the bionic woman? >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: %quest6% - Incorrect! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Wrong += 1
+  )
+
+  IF /I %quest7% == Ear  (
+    ECHO. >> %reportloc%
+    ECHO 7. Did the bionic woman have a bionic eye or bionic ear? >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: Ear - Correct! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Right += 1
+  ) ELSE  (
+    ECHO. >> %reportloc%
+    ECHO 7. Did the bionic woman have a bionic eye or bionic ear? >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: %quest7% - Incorrect! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Wrong += 1
+  )
+
+  IF /I %quest8% == F  (
+    ECHO. >> %reportloc%
+    ECHO 8. T/F: The bionic woman cost more than the Six-Million-Dollar Man. >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: False - Correct! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Right += 1
+  ) ELSE  (
+    ECHO. >> %reportloc%
+    ECHO 8. T/F: The bionic woman cost more than the Six-Million-Dollar Man. >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: %quest8% - Incorrect! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Wrong += 1
+  )
+
+  IF /I %quest9% == T  (
+    ECHO. >> %reportloc%
+    ECHO 9. T/F: The Six-Million-Dollar Man was know as Heath on the "Big Valley." >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: True - Correct! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Right += 1
+  ) ELSE  (
+    ECHO. >> %reportloc%
+    ECHO 9. T/F: The Six-Million-Dollar Man was know as Heath on the "Big Valley." >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: %quest9% - Incorrect! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Wrong += 1
+  )
+
+  IF /I %quest10% == Yes  (
+    ECHO. >> %reportloc%
+    ECHO 10. Yes/No: Did the Six-Million-Dollar Man ever marry the bionic woman? >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: Yes - Correct! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Right += 1
+  ) ELSE  (
+    ECHO. >> %reportloc%
+    ECHO 10. Yes/No: Did the Six-Million-Dollar Man ever marry the bionic woman? >> %reportloc%
+    ECHO. >> %reportloc%
+    ECHO    Your answer was: %quest10% - Incorrect! >> %reportloc%
+    ECHO. >> %reportloc%
+    SET /A Wrong += 1
+  )
+
+  REM Determines over all letter grade
+  IF %Right% == 10  (
+    SET Grade=A+
+    GOTO :ScoreCard
+  )
+
+  IF %Right% == 9  (
+    SET Grade=A
+    GOTO :ScoreCard
+  )
+
+  IF %Right% == 8  (
+    SET Grade=B
+    GOTO :ScoreCard
+  )
+
+  IF %Right% == 7  (
+    SET Grade=C
+    GOTO :ScoreCard
+  )
+
+  IF %Right% == 6  (
+    SET Grade=D
+    GOTO :ScoreCard
+  )
+
+  IF %Right% == 5  (
+    SET Grade=F
+    GOTO :ScoreCard
+  )
+
+  IF %Right% == 4  (
+    SET Grade=F
+    GOTO :ScoreCard
+  )
+
+  IF %Right% == 3  (
+    SET Grade=F
+    GOTO :ScoreCard
+  )
+
+  IF %Right% == 2  (
+    SET Grade=F
+    GOTO :ScoreCard
+  )
+
+  IF %Right% == 1  (
+    SET Grade=F
+    GOTO :ScoreCard
+  )
+
+  IF %Right% == 0  (
+    SET Grade=F
+    GOTO :ScoreCard
+  )
+
+REM Creates return point
+:ScoreCard
+
+  REM Displays score card data in window and where to find
+  ECHO.
+  ECHO.
+  REM Display Score Card
+  ECHO                      Six-Million-Dollar-Man Score Card
+  ECHO.
+  ECHO --------------------------------------------------------------------------------
+  ECHO.
+  ECHO Total number of questions on the quiz           = 10
+  ECHO.
+  ECHO Total number of correctly answered questions    = %Right%
+  ECHO.
+  ECHO Total number of incorrectly answered questions  = %Wrong%
+  ECHO.
+  ECHO.
+  ECHO    Your overall score is a(n) %Grade%.
+  ECHO.
+  ECHO --------------------------------------------------------------------------------
+  ECHO.
+  ECHO A detailed score card report can be found at %reportloc%
+  ECHO.
+  ECHO.
+
+  REM Asks user if they want score card in report
+  SET /P append=Would you like to add this score card to your results report? (y/n) 
+  ECHO.
+
+  REM If yes, append score card
+  IF /I %append% == y  (
+    GOTO :AppendScoreCard
+  ) ELSE  (
+    GOTO :PlayAgain
+  )
+
+
+REM Creates a return point
+:AppendScoreCard
+
+  REM Writes Score Card to report
+  ECHO. >> %reportloc%
+  ECHO. >> %reportloc%
+  ECHO. >> %reportloc%
+  ECHO ----------------------------------------------------------------------------------- >> %reportloc%
+  ECHO. >> %reportloc%
+  ECHO Score Card: >> %reportloc%
+  ECHO. >> %reportloc%
+  ECHO. >> %reportloc%
+  ECHO Total number of questions on the quiz           = 10 >> %reportloc%
+  ECHO. >> %reportloc%
+  ECHO Total number of correctly answered questions    = %Right% >> %reportloc%
+  ECHO. >> %reportloc%
+  ECHO Total number of incorrectly answered questions  = %Wrong% >> %reportloc%
+
+REM Creates a return point
+:PlayAgain
+
+  REM Asks user if they want to play again
+  ECHO.
+  SET /P again=Would you like to play again? (y/n) 
+  ECHO.
+  ECHO.
+
+  REM If yes, return to main menu screen
+  IF /I %again% == y  (
+    GOTO :StartGame
+  ) ELSE  (
+    GOTO :EOF
+  )
+
+REM  -=-=- Subroutine and Procedure Section -=-=-
