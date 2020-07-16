@@ -1,0 +1,427 @@
+@ECHO off
+
+REM ******************************************************************************
+REM
+REM Script Name: RockPaperScissors.bat
+REM Author: Gregory Smith
+REM Date: 04-19-2014
+REM
+REM Description: This is a Windows shell script implementation of the popular
+REM children's game called "Rock, Paper, Scissors."
+REM
+REM ******************************************************************************
+
+REM       * * * * *                                 * * * * *
+REM      * * * * * * Script Initialization Section * * * * * *
+REM       * * * * *                                 * * * * *
+
+REM Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+  GOTO :EOF
+ )
+
+REM Sets title of the window
+TITLE = R o c k, P a p e r, S c i s s o r s
+
+REM Set the color scheme to yellow on black
+COLOR 0E
+
+REM Define globally used variables
+SET /A NoWins = 0
+SET /A NoLosses = 0
+SET /A NoTies = 0
+SET /A NoInvalid = 0
+
+REM       * * * * *                           * * * * *
+REM      * * * * * * Main Processing Section * * * * * *
+REM       * * * * *                           * * * * *
+
+REM Call the procedure that displays the main menu
+CALL :DisplayMenu
+
+REM If player wanted to exit, end script execution
+IF /I %option% == Exit  (
+  CLS
+  GOTO :EOF
+)
+
+REM Sets starting play time in seconds
+SET /A sth1 = %time:~0,1%
+SET /A sth2 = %time:~1,1%
+SET /A stm1 = %time:~3,1%
+SET /A stm2 = %time:~4,1%
+SET /A sts1 = %time:~6,1%
+SET /A sts2 = %time:~7,1%
+SET /A sth1 = %sth1% * 36000
+SET /A sth2 = %sth2% * 3600
+SET /A stm1 = %stm1% * 600
+SET /A stm2 = %stm2% * 60
+SET /A sts1 = %sts1% * 10
+SET /A tst = %sth1% + %sth2% + %stm1% + %stm2% + %sts1% + %sts2%
+
+REM Creates a callable label for restarting the game
+:StartAgain
+
+REM Call the procedure that collects player's choice
+CALL :CollectChoice
+
+REM Call the procedure that randomly determines computer's choice
+CALL :GetComputerChoice
+
+REM Call the procedure that determines if player won, lost, or tied
+CALL :CompareChoices
+
+REM Call the procedure that chacks for an invalid response
+CALL :CheckForInvalid
+
+REM Call the procedure that displays the results of the game
+CALL :DisplayResults
+
+REM Analyze the player's response and either starts a new game or displays
+REM game statistics
+IF /I "%response:~,1%" EQU "y"  (
+  GOTO :StartAgain
+) ELSE  (
+    CALL :DisplayStats
+    GOTO :EOF
+  )
+
+REM Terminates the script's execution
+GOTO :EOF
+
+REM       * * * * *                                    * * * * *
+REM      * * * * * * Subroutine and Procedure Section * * * * * *
+REM       * * * * *                                    * * * * *
+
+REM This procedure displays the game's main menu
+:DisplayMenu
+
+  REM Sets default value so Enter doesn't return error
+  SET option=""
+
+  REM Clears the screen
+  CLS
+
+  REM Adds five blank lines to the display
+  FOR /L %%i IN (1,1,5) DO ECHO.
+
+  ECHO                            W E L C O M E  T O
+  ECHO.
+  ECHO                   R O C K, P A P E R, S C I S S O R S !
+
+  REM Adds twelve blank lines to the display
+  FOR /L %%i IN (1,1,12) DO ECHO.
+
+  ECHO                     [Play]  [Help]  [About]  [Exit]
+  ECHO.
+
+  REM Asks the player to choose an option
+  SET /P option= Option: 
+
+  REM Determine what the player wants to do based on input
+  IF /I %option% == ""  (
+    CLS
+    GOTO :DisplayMenu
+  )
+  IF /I %option% == Play  (
+    CLS
+    GOTO :CollectChoice
+  )
+  IF /I %option% == Exit  (
+    CLS
+    GOTO :EOF
+  )
+  IF /I %option% == Help  (
+    CLS
+    GOTO :Help
+  )
+  IF /I %option% == About  (
+    CLS
+    GOTO :About
+  )
+
+GOTO :EOF
+
+REM Creates a return point
+:Help
+
+  REM Display the Help screen
+  ECHO.
+  ECHO.
+  ECHO                           HELP INSTRUCTIONS
+  ECHO.
+  ECHO In this game, you will be able to choose between rock, paper, or scissors
+  ECHO to compete against the computer's coices of the same three objects.
+  ECHO After your choice is made, a decision will be made about who has won and
+  ECHO the results will be displayed afterwards.
+  ECHO.
+  ECHO.
+  ECHO -------------------------------------------------------------------------
+  ECHO.
+  ECHO Rules:
+  ECHO.
+  ECHO 1. Guess the same thing as the computer to tie.
+  ECHO.
+  ECHO 2. Paper covers rock and wins.
+  ECHO.
+  ECHO 3. Rock breaks scissors and wins.
+  ECHO.
+  ECHO 4. Scissors cuts paper and wins.
+  ECHO.
+  ECHO.
+
+  REM Waits for user to press any key
+  PAUSE
+
+  REM Clear the screen
+  CLS
+
+  REM Return to main screen
+  GOTO :DisplayMenu
+
+GOTO :EOF
+
+REM Creates a return point
+:About
+
+  REM Display the About screen
+
+  REM Creates 4 blank lines
+  FOR /L %%a IN (1,1,4) DO ECHO.
+
+  REM Displays main About text
+  ECHO                      About Rock, Paper, Scissors
+  ECHO.
+  ECHO                               Written by
+  ECHO.
+  ECHO                          Gregory Barret Smith
+  ECHO.
+  ECHO                        ------------------------
+  ECHO.
+  ECHO                             Copyright 2014
+
+  REM Creates 10 blank lines
+  FOR /L %%a IN (1,1,10) DO ECHO.
+
+  REM Waits for user to press any key
+  PAUSE
+
+  REM Clear the screen
+  CLS
+
+  REM Return to main screen
+  GOTO :DisplayMenu
+
+GOTO :EOF
+
+REM This collects the player's choice
+:CollectChoice
+
+  REM Define variables needed to store and analyze player's response
+  SET answer="No Answer"
+  SET response=N
+  SET results=None
+
+  REM Clears the screen
+  CLS
+
+  REM Adds eight blank lines to display
+  FOR /L %%i IN (1,1,8) DO ECHO.
+
+  REM Asks player to make their choice
+  SET /P answer= Type either rock, paper, or scissors: 
+
+GOTO :EOF
+
+REM This procedure randomly determines computer's choice
+:GetComputerChoice
+
+  REM Gets a random number
+  SET GetRandomNumber=%random%
+
+  REM If the random umber is greater than 22000, the computer picked rock
+  IF %GetRandomNumber% GTR 22000  (
+    SET CardImage=rock
+    GOTO :Continue
+  )
+
+  REM If the random umber is greater than 11000, the computer picked scissors
+  IF %GetRandomNumber% GTR 11000  (
+    SET CardImage=scissors
+    GOTO :Continue
+  )
+
+  REM Otherwise, assign paper as computer's choice
+  SET CardImage=paper
+
+  REM This label is used to skip unnecessary conditional tests in this procedure
+  :Continue
+
+GOTO :EOF
+
+REM This procedure determines if the player won, lost, or tied
+:CompareChoices
+
+  REM Compare choices when the player selects rock
+  IF /I %answer% == rock  (
+    IF %CardImage% == rock  (
+      SET results="Rock doesn't affect Rock, you tie."
+      SET /A NoTies = NoTies + 1
+    )
+    IF %CardImage% == scissors  (
+      SET results="Rock smashes Scissors, you won!"
+      SET /A NoWins = NoWins + 1
+    )
+    IF %CardImage% == paper  (
+      SET results="Paper covers Rock, you lost."
+      SET /A NoLosses = NoLosses + 1
+    )
+  )
+
+  REM Compare choices when the player selects scissors
+  IF /I %answer% == scissors  (
+    IF %CardImage% == rock  (
+      SET results="Rock smashes Scissors, you lost"
+      SET /A NoLosses = NoLosses + 1
+    )
+    IF %CardImage% == scissors  (
+      SET results="Scissors doesn't affect Scissors, you tie."
+      SET /A NoTies = NoTies + 1
+    )
+    IF %CardImage% == paper  (
+      SET results="Scissors cuts through Paper, you won!"
+      SET /A NoWins = NoWins + 1
+    )
+  )
+
+  REM Compare choices when the player selects paper
+  IF /I %answer% == paper  (
+    IF %CardImage% == rock  (
+      SET results="Paper covers Rock, you won!"
+      SET /A NoWins = NoWins + 1
+    )
+    IF %CardImage% == scissors  (
+      SET results="Scissors cuts through Paper, you lost."
+      SET /A NoLosses = NoLosses + 1
+    )
+    IF %CardImage% == paper  (
+      SET results="Paper doesn't affect Paper, you tie."
+      SET /A NoTies = NoTies + 1
+    )
+  )
+
+GOTO :EOF
+
+REM This procedure checks for an invalid choice
+:CheckForInvalid
+
+  IF %results%==None  (
+
+    REM Clears the screen
+    CLS
+
+    REM Keeps a count of the total number of invalid player choices
+    SET /A NoInvalid = NoInvalid + 1
+
+    REM Adds three blank lines to the display
+    FOR /L %%i IN (1,1,3) DO ECHO.
+
+    ECHO Sorry. Your answer was not recognized.
+    ECHO.
+    ECHO Use all lower case when entering your choice.
+
+    REM Adds four blank lines to the display
+    FOR /L %%i IN (1,1,4) DO ECHO.
+
+    REM Makes the player press a key to continue
+    PAUSE
+
+  )
+
+GOTO :EOF
+
+REM This procedure displays the results of the game
+:DisplayResults
+
+  REM CLears the screen
+  CLS
+
+  REM Adds three blank lines to the display
+  FOR /L %%i IN (1,1,3) DO ECHO.
+
+  ECHO        G A M E   R E S U L T S
+  ECHO.
+  ECHO -------------------------------------
+  ECHO.
+  ECHO   You picked:            %answer%
+  ECHO.
+  ECHO   The Computer picked:   %CardImage%
+  ECHO -------------------------------------
+  ECHO.
+  ECHO Results:       %Results%
+
+  REM Adds three blank lines to the display
+  FOR /L %%i IN (1,1,9) DO ECHO.
+
+  REM Asks the player whether he would like to play another game
+  SET /P response=Play another round (y/n)? 
+
+GOTO :EOF
+
+REM This procedure displays game statistics
+:DisplayStats
+
+  REM Sets ending play time in seconds and calculates total play time
+  SET /A eth1 = %time:~0,1%
+  SET /A eth2 = %time:~1,1%
+  SET /A etm1 = %time:~3,1%
+  SET /A etm2 = %time:~4,1%
+  SET /A ets1 = %time:~6,1%
+  SET /A ets2 = %time:~7,1%
+  SET /A eth1 = %eth1% * 36000
+  SET /A eth2 = %eth2% * 3600
+  SET /A etm1 = %etm1% * 600
+  SET /A etm2 = %etm2% * 60
+  SET /A ets1 = %ets1% * 10
+  SET /A tet = %eth1% + %eth2% + %etm1% + %etm2% + %ets1% + %ets2%
+  SET /A ttp = %tet% - %tst%
+
+  REM Calculates percentages of wins, losses, and ties
+  SET /A TotNo = %NoTies% + %NoWins% + %NoLosses%
+  SET /A PerTies = (%NoTies% * 100) / %TotNo%
+  SET /A PerWins = (%NoWIns% * 100) / %TotNo%
+  SET /A PerLosses = (%NoLosses% * 100) / %TotNo%
+
+  REM Clears the screen
+  CLS
+
+  REM Adds three blank lines to the display
+  FOR /L %%i IN (1,1,3) DO ECHO.
+
+  ECHO             G A M E   S T A T I S T I C S
+  ECHO.
+  ECHO -----------------------------------------------------
+  ECHO.
+  ECHO     Category                 Results      Percent
+  ECHO    ---------------------   -----------   ---------
+  ECHO.
+  ECHO     No. of Ties                 %NoTies%           %PerTies%%%
+  ECHO.
+  ECHO     No. of Wins                 %NoWins%           %PerWins%%%
+  ECHO.
+  ECHO     No. of Losses               %NoLosses%           %PerLosses%%%
+  ECHO.
+  ECHO     No. of Invalid Hands        %NoInvalid%
+  ECHO.
+  ECHO     Total Time Played       %ttp% seconds
+  ECHO.
+  ECHO -----------------------------------------------------
+  ECHO.
+  ECHO.
+
+GOTO :EOF
