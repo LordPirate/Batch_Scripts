@@ -1,0 +1,329 @@
+@ECHO off
+
+REM ******************************************************************************
+REM
+REM Script Name: GuessANumber.bat
+REM Author: Vearmi Pone
+REM Date: 04-11-2014
+REM
+REM Description: This script game challenges the player to guess a number between
+REM 0 and 32,767 within the fewest possible guesses
+REM
+REM ******************************************************************************
+
+REM *** Script Initialization Section ***
+
+REM Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+  GOTO :EOF
+ )
+
+REM Set the color scheme to green on grey
+COLOR B0
+
+REM Creates a random number
+SET RandomNo=%random%
+
+REM Random number variable minus 20
+SET /a RandomNoL20 = %RandomNo%
+SET /a RandomNoL20 -= 20
+
+REM Random number variable plus 20
+SET /a RandomNoH20 = %RandomNo%
+SET /a RandomNoH20 += 20
+
+REM Random number variable minus 200
+SET /a RandomNoL200 = %RandomNo%
+SET /a RandomNoL200 -= 200
+
+REM Random number variable plus 200
+SET /a RandomNoH200 = %RandomNo%
+SET /a RandomNoH200 += 200
+
+REM Sets the initial value of number of guesses to zero
+SET /a NoGuesses = 0
+
+REM Sets the initial value of number of low guesses to zero
+SET /a NoGuessesLow = 0
+
+REM Sets the initial value of number of high guesses to zero
+SET /a NoGuessesHigh = 0
+
+REM Sets the initial value of number of out of bounds guesses to zero
+SET /a NoGuessesOOB = 0
+
+REM Sets the title for the window
+TITLE = T H E  G U E S S  A  N U M B E R  G A M E
+
+REM *****Main Processing Section*****
+
+REM Creates a return point in the script
+:BEGINGAME
+
+  REM Clears the screen
+  CLS
+
+  REM Displays the welcome screen
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO                   W E L C O M E  T O  T H E ...........
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO GGGG  U  U  EEE  SSSS  SSSS    AA    N   N  U  U  M     M  BBB   EEE  RRR
+  ECHO G  G  U  U  E    S     S      A  A   NN  N  U  U  MM   MM  B  B  E    R  R
+  ECHO G     U  U  E    SSS   SSS    AAAA   N N N  U  U  M M M M  B  B  E    RRR
+  ECHO G  GG U  U  EEE   SSS   SSS   A  A   N N N  U  U  M  M  M  BBB   EEE  RR
+  ECHO G  G  U  U  E       S     S   A  A   N  NN  U  U  M     M  B  B  E    R R
+  ECHO GGGG   UU   EEE  SSSS  SSSS   A  A   N   N   UU   M     M  BBB   EEE  R  R
+  ECHO.
+  ECHO.
+  ECHO                                G A M E !!!
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+
+  REM Wait for player to hit any key
+  PAUSE
+
+REM Creates a return point in script
+:BEGINLOOP
+
+  REM Clears the screen
+  CLS
+
+  REM Displays guessing screen
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+
+  REM Prompts player to guess a number
+  SET /p UserNumber=Please type your guess: 
+
+  REM Adds one to the number of guesses
+  SET /a NoGuesses += 1
+
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+  ECHO.
+
+  REM Checks to see if number guessed was out of bounds
+  IF %UserNumber% LSS 0  (
+
+    SET /a NoGuessesOOB += 1
+
+    ECHO.
+    ECHO.
+    ECHO Your guess was out of bounds. Try again.
+    ECHO.
+    ECHO.
+
+    PAUSE
+
+    GOTO :BEGINLOOP
+
+  )
+
+  REM Checks to see if number guessed was out of bounds
+  IF %UserNumber% GTR 32767  (
+
+    SET /a NoGuessesOOB += 1
+
+    ECHO.
+    ECHO.
+    ECHO Your guess was out of bounds. Try again.
+    ECHO.
+    ECHO.
+
+    PAUSE
+
+    GOTO :BEGINLOOP
+
+  )
+
+  REM Checks to see if number guessed is within 20 below
+  IF %UserNumber% LSS %RandomNo%  (
+    
+    IF %UserNumber% GEQ %RandomNoL20%  (
+
+      SET /a NoGuessesLow += 1
+
+      ECHO.
+      ECHO.
+      ECHO Your guess was low, but you're getting very hot! Try again.
+      ECHO.
+      ECHO.
+      ECHO.
+
+      PAUSE
+
+      GOTO :BEGINLOOP
+
+    )
+  )
+
+  REM Checks to see if number guessed is within 20 below
+  IF %UserNumber% GTR %RandomNo%  (
+    
+    IF %UserNumber% LEQ %RandomNoH20%  (
+
+      SET /a NoGuessesHigh += 1
+
+      ECHO.
+      ECHO.
+      ECHO Your guess was high, but you're getting very hot! Try again.
+      ECHO.
+      ECHO.
+      ECHO.
+
+      PAUSE
+
+      GOTO :BEGINLOOP
+
+    )
+  )
+
+  REM Checks to see if number guessed is within 200 below
+  IF %UserNumber% LSS %RandomNo%  (
+    
+    IF %UserNumber% GEQ %RandomNoL200%  (
+
+      SET /a NoGuessesLow += 1
+
+      ECHO.
+      ECHO.
+      ECHO Your guess was too low, but you are getting warmer. Try again.
+      ECHO.
+      ECHO.
+      ECHO.
+
+      PAUSE
+
+      GOTO :BEGINLOOP
+
+    )
+  )
+
+  REM Checks to see if number guessed is within 200 below
+  IF %UserNumber% GTR %RandomNo%  (
+    
+    IF %UserNumber% LEQ %RandomNoH200%  (
+
+      SET /a NoGuessesHigh += 1
+
+      ECHO.
+      ECHO.
+      ECHO Your guess was too high, but you are getting warmer. Try again.
+      ECHO.
+      ECHO.
+      ECHO.
+
+      PAUSE
+
+      GOTO :BEGINLOOP
+
+    )
+  )
+
+  REM Checks to see if number guessed was too low
+  IF %UserNumber% LSS %RandomNo%  (
+
+    SET /a NoGuessesLow += 1
+
+    ECHO.
+    ECHO.
+    ECHO Your guess was way too low. Try again.
+    ECHO.
+    ECHO.
+    ECHO.
+
+    PAUSE
+
+    GOTO :BEGINLOOP
+
+  )
+
+  REM Checks to see if number guessed was too high
+  IF %UserNumber% GTR %RandomNo%  (
+
+    SET /a NoGuessesHigh += 1
+
+    ECHO.
+    ECHO.
+    ECHO Your guess way was too high. Try again.
+    ECHO.
+    ECHO.
+    ECHO.
+
+    PAUSE
+
+    GOTO :BEGINLOOP
+
+  )
+
+REM Clears the screen
+CLS
+
+REM Reverses game's color to gray on green
+COLOR 0B
+
+REM Displays winning screen with number of guesses
+ECHO.
+ECHO     *     *     *     *     *     *     *     *     *     *     *     *
+ECHO.
+ECHO.
+ECHO              Congradulations! You guessed it.
+ECHO.
+ECHO              The number was %UserNumber%.
+ECHO.
+ECHO              You guessed it in %NoGuesses% guesses.
+ECHO.
+ECHO              You guessed low %NoGuessesLow% times.
+ECHO.
+ECHO              You guessed high %NoGuessesHigh% times.
+ECHO.
+ECHO              You guessed out of bounds %NoGuessesOOB% times.
+ECHO.
+ECHO.
+ECHO     *     *     *     *     *     *     *     *     *     *     *     *
+ECHO.
+ECHO.
+ECHO.
+
+REM Creates a return point in the script
+:PLAYAGAIN
+
+  REM Prompt the player to play again
+  SET /p Replay=             Would you like to play again? (y/n) 
+
+  REM Extract the first character of player input
+  SET trigger=%Replay:~0,1%
+
+  REM Check if answer is yes
+  IF %trigger%==y  (
+    GOTO :BEGINGAME
+  )
+
+  REM Check if answer is no
+  IF %trigger%==n  (
+    GOTO :EOF
+  ) ELSE  (
+    GOTO :PLAYAGAIN
+  )
+
+REM *****Subroutine and Procedure Section*****
