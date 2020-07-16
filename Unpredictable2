@@ -1,0 +1,87 @@
+@ECHO off
+
+REM ******************************************************************************
+REM
+REM Script Name: UCP2.bat
+REM Author: Vearmi Pone
+REM Date: 04-19-2014
+REM
+REM Description: This Windows shell script randomly adjusts the Windows shell
+REM working environment
+REM
+REM ******************************************************************************
+
+REM *** Script Initialization Section ***
+
+REM Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+  GOTO :EOF
+ )
+
+REM Clears the screen
+CLS
+
+REM *** Main Processing Section ***
+
+REM Run the GetRandomVariable procedure and return
+CALL :GetRandomVariable
+
+REM If the random variable is greater than 22000 then run the first configuration
+IF %TestVariable% GTR 22000 (
+  CALL :FirstConfiguration
+  GOTO :EOF
+)
+
+REM If the random variable is greater than 11000 then run the second configuration
+IF %TestVariable% GTR 11000 (
+  CALL :SecondConfiguration
+  GOTO :EOF
+)
+
+REM If the random variable is greater than 0 then run the third configuration
+IF %TestVariable% GTR 0 (
+  CALL :ThirdConfiguration
+  GOTO :EOF
+)
+
+REM *** Subroutine & Procedure Section ***
+
+REM Creates a procedure to produce a random variable
+:GetRandomVariable
+  SET TestVariable=%random%
+GOTO :EOF
+
+REM Changes the Windows command console
+:FirstConfiguration
+  CLS
+  TITLE UCP - The Unpredictable Command Prompt - %TestVariable%
+  COLOR 02
+  ECHO Greetings %username%. Code well and Prosper.
+  ECHO.
+  PROMPT
+GOTO :EOF
+
+REM Changes the Windows command console
+:SecondConfiguration
+  CLS
+  TITLE Demo - Manipulating the Windows console environment - %TestVariable%
+  COLOR 0E
+  ECHO Hello. It is good to be working with you today!
+  ECHO.
+  PROMPT $d$g
+GOTO :EOF
+
+REM Changes the Windows command console
+:ThirdConfiguration
+  CLS
+  TITLE Windows Shell Scripting Example - %TestVariable%
+  COLOR E0
+  ECHO Boo! Did I scare you?
+  ECHO.
+  PROMPT $p
+GOTO :EOF
