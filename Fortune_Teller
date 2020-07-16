@@ -1,0 +1,304 @@
+@ECHO off
+
+REM ***************************************************************************
+REM
+REM Script Name: Fortune.bat
+REM Author: Vearmi Pone
+REM Date: 03-29-2014
+REM
+REM Description: This Windows shell script game provides random answers to
+REM questions posed by the player
+REM
+REM ***************************************************************************
+
+REM *** Script Initialization Section ***
+
+REM Set the console colors to yellow text on a purple background
+COLOR 5E
+
+REM Displays the name of the game in the Windows command console title bar
+TITLE The Fortune Teller Game
+
+REM *** Main Processing Section ***
+
+REM Clear the screen
+CLS
+
+REM Display welcome screen
+ECHO.
+ECHO.
+ECHO.
+ECHO                                                   ^|
+ECHO.
+ECHO    W E L C O M E  T O                       \          /
+ECHO                                                 ***
+ECHO    T H E  F O R T U N E                        *    *
+ECHO                                          __   *      *    __
+ECHO    T E L L E R ' S  M A G I C                 *      *
+ECHO                                                *    *
+ECHO    C R Y S T A L  B A L L !                     ***
+ECHO                                                /   \
+ECHO                                                -----
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO Prepar to be mystified by the great psychic power of the Fortune Teller.
+ECHO She knows all, she sees all and she tells all!
+ECHO.
+ECHO.
+
+REM Wait for player to press any key to continue
+PAUSE
+
+REM Clear the screen
+CLS
+
+REM Display additional story text
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO You enter the back room of the old antiques shop where you heard there
+ECHO.
+ECHO is a fortune teller with the mystical powers of foresight. You notice
+ECHO.
+ECHO a circular table in the middle of the room with a bright red cloth draped
+ECHO.
+ECHO over it and on top of the cloth is a crystal ball sitting it what appears
+ECHO.
+ECHO to be an iron eagle's foot. As you keep looking around the room a spiral
+ECHO.
+ECHO staircase catches your eye. You follow it up from the ground wondering
+ECHO.
+ECHO where it leads too...
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Wait for player to press any key to continue
+PAUSE
+
+REM Clear the screen
+CLS
+
+REM Display additional story text
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO Suddenly, as your eyes reach the top of the staircase, you see this
+ECHO.
+ECHO eerie fog start to flow down from upstairs. The room starts to chill as
+ECHO.
+ECHO you hear foot steps getting closer and closer. An older looking lady,
+ECHO.
+ECHO short in height but large in size, starts to spiral down the staircase
+ECHO.
+ECHO as if she was floating down on the fog. She gets to the bottom of the
+ECHO.
+ECHO staircase and points to the chair in front of you as if to say "Take
+ECHO.
+ECHO a seat."
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Wait for player to press any key to continue
+PAUSE
+
+REM Clear the screen
+CLS
+
+REM Display additional story text
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO You sit down as she sits down across the table from you.
+ECHO.
+ECHO "I have been expecting you," she says in a soft but eerie voice.
+ECHO.
+ECHO "You have?" you say in a shriveled voice.
+ECHO.
+ECHO "Why of course, you need answers don't you?" she says.
+ECHO.
+ECHO "Yes, that is why I came." you say with a bit calmer tone.
+ECHO.
+ECHO "Ask any question you like and I will do my best to find the answer
+ECHO.
+ECHO of which you seek. And please try to ask yes or no questions as they
+ECHO.
+ECHO have the best results." she says as she starts to lean in.
+ECHO.
+ECHO.
+
+REM This label provides a return point in the script
+:QUESTION
+
+REM Displays a blank line
+ECHO.
+ECHO.
+ECHO.
+
+REM Prompts the player to type a question
+SET /p reply="So, what is your question?"
+
+REM Extract the first three characters of player's input
+SET trigger=%reply:~0,3%
+
+REM If "Bye" was players input go to ComeAgain label
+IF %trigger%==Bye (
+  GOTO :ComeAGain
+ )
+
+REM Clear the screen
+CLS
+
+REM Display text that precedes fortune teller's response
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO The old fortune teller closes her eyes and slowly starts to swirl her hands
+ECHO.
+ECHO around the crystal ball. You can see the crystal ball start to cloud up.
+ECHO.
+ECHO She begins to mumble aloud in an ancient dialect sending chills up your back.
+ECHO.
+ECHO Suddenly she sits upright and stares you in your eyes as the crystal ball's
+ECHO.
+ECHO cloudy color turns from white to red...
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Wait for player to press any key to continue
+PAUSE
+
+REM Set z variable to random
+SET z=%random%
+
+REM If z is greater than 29200 then set answer variable and go to 'Continue'
+IF %z% GTR 29200 (
+  SET answer=certainly so!
+  GOTO :Continue
+ )
+
+REM If z is greater than 25550 then set answer variable and go to 'Continue'
+IF %z% GTR 25550 (
+  SET answer=not clear at this time, sorry.
+  GOTO :Continue
+ )
+
+REM If z is greater than 21900 then set answer variable and go to 'Continue'
+IF %z% GTR 21900 (
+  SET answer=doubtfully no.
+  GOTO :Continue
+ )
+
+REM If z is greater than 18250 then set answer variable and go to 'Continue'
+IF %z% GTR 18250 (
+  SET answer=yes, undoubfully yes!
+  GOTO :Continue
+ )
+
+REM If z is greater than 14600 then set answer variable and go to 'Continue'
+IF %z% GTR 14600 (
+  SET answer=not something you need to here at this time. Ask again later.
+  GOTO :Continue
+ )
+
+REM If z is greater than 10950 then set answer variable and go to 'Continue'
+IF %z% GTR 10950 (
+  SET answer=no, No, NO!
+  GOTO :Continue
+ )
+
+REM If z is greater than 7300 then set answer variable and go to 'Continue'
+IF %z% GTR 7300 (
+  SET answer=pointing to yes.
+  GOTO :Continue
+ )
+
+REM If z is greater than 3650 then set answer variable and go to 'Continue'
+IF %z% GTR 3650 (
+  SET answer=not showing up clearly, try rephrasing.
+  GOTO :Continue
+ )
+
+REM If z is greater than 0 then set answer variable and go to 'Continue'
+IF %z% GTR 0 (
+  SET answer=a definite no.
+  GOTO :Continue
+ )
+
+REM This label provides a return point in the script
+:Continue
+
+REM Clear the screen
+CLS
+
+REM Displays answer to players question
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO "The answer which you are seeking is %answer%"
+ECHO.
+ECHO.
+ECHO.
+ECHO "You may ask another question or you may say 'Bye'."
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for the player to press any key to continue
+PAUSE
+
+REM Clear the screen
+CLS
+
+REM Jumps back to the question prompt to continue game
+GOTO :QUESTION
+
+REM This label provides an end point in the script
+:ComeAgain
+
+REM Displays ending story text
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO "Good bye to you too, but I hope you will come to see me again
+ECHO.
+ECHO some time very soon." says the fortune teller as she gets up and
+ECHO.
+ECHO disappears into the dark background.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM End game
+:EOF
+
+REM Subroutine and Procedure Section
