@@ -1,0 +1,19 @@
+@ECHO off
+
+:Question
+CLS
+
+ECHO.
+ECHO.
+
+SET /p reply="Try to say GoodBye."
+
+SET trigger=%reply:~,6%
+
+IF NOT %trigger%=="GoodBye"  (
+  GOTO :Question
+ )
+
+ELSE  (
+  GOTO :EOF
+ )
