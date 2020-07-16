@@ -1,0 +1,296 @@
+@ECHO off
+
+REM ******************************************************************************
+REM
+REM Script Name: TestAnimation.bat
+REM Author: Gregory Smith
+REM Date: 04-09-2014
+REM
+REM Description: This script shows the procedure to make animations
+REM
+REM ******************************************************************************
+
+REM Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+  GOTO :EOF
+ )
+
+REM Set the color scheme to yellow on black
+COLOR 0E
+
+REM Clears the screen
+CLS
+
+REM Displays the welcome screen
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO  W E L C O M E  T O  T H E ...........
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for 1 second
+Ping -n 1 -w 10 127.0.0.1 > nul
+
+REM Set the color scheme to black on yellow
+COLOR e0
+
+REM Clears the screen
+CLS
+
+REM Displays the welcome screen
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO  W E L C O M E
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for 1 second
+Ping -n 1 -w 10 127.0.0.1 > nul
+
+REM Set the color scheme to yellow on black
+COLOR 0E
+
+REM Clears the screen
+CLS
+
+REM Displays the welcome screen
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO  W E L C O M E  T O  T H E ...........
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for 1 second
+Ping -n 1 -w 10 127.0.0.1 > nul
+
+REM Set the color scheme to black on yellow
+COLOR e0
+
+REM Clears the screen
+CLS
+
+REM Displays the welcome screen
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO  W E L C O M E  T O  T H E ...........
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO  S T O R Y
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for 1 second
+Ping -n 1 -w 10 127.0.0.1 > nul
+
+REM Set the color scheme to yellow on black
+COLOR 0E
+
+REM Clears the screen
+CLS
+
+REM Displays the welcome screen
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO  W E L C O M E  T O  T H E ...........
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO  S T O R Y  O F
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for 1 second
+Ping -n 1 -w 10 127.0.0.1 > nul
+
+REM Set the color scheme to black on yellow
+COLOR e0
+
+REM Clears the screen
+CLS
+
+REM Displays the welcome screen
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO  W E L C O M E  T O  T H E ...........
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO  S T O R Y  O F  T H E
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for 1 second
+Ping -n 1 -w 10 127.0.0.1 > nul
+
+REM Set the color scheme to yellow on black
+COLOR 0E
+
+REM Clears the screen
+CLS
+
+REM Displays the welcome screen
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO  W E L C O M E  T O  T H E ...........
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO  S T O R Y  O F  T H E  W O N D E R
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for 1 second
+Ping -n 1 -w 10 127.0.0.1 > nul
+
+REM Set the color scheme to black on yellow
+COLOR e0
+
+REM Clears the screen
+CLS
+
+REM Displays the welcome screen
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO  W E L C O M E  T O  T H E ...........
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO  S T O R Y  O F  T H E  W O N D E R  D O G !
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for 1 second
+Ping -n 1 -w 10 127.0.0.1 > nul
+
+REM 
+Pause >nul
