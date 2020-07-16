@@ -1,0 +1,71 @@
+@ECHO off
+
+REM Allows user to toggle between execution mode and debug mode
+IF /I "%1"=="debug" (SET debug=ECHO) ELSE (SET debug=REM)
+
+%debug%.
+%debug%                          - - - - - - - - - - - - - - -
+%debug%                         - -   D E B U G   M O D E   - -
+%debug%                          - - - - - - - - - - - - - - -
+%debug%.
+
+%debug% *******************************************************************************
+%debug%.
+%debug% [ SCRIPT NAME ] = Template.bat
+%debug%.
+%debug% [ AUTHOR(S) ] = Gregory Barret Smith
+%debug%.
+%debug% [ DATE CREATED ] = 22 April 2014
+%debug%.
+%debug% [ DATE LAST MODIFIED ] = 24 April 2014
+%debug%.
+%debug% [ DESCRIPTION ] = This Windows shell script provides a blank template for the
+%debug%                   creation of future scripts.
+%debug%.
+%debug% *******************************************************************************
+%debug%.
+
+%debug%              * * * * *                                 * * * * *
+%debug%             * * * * * * Script Initialization Section * * * * * *
+%debug%              * * * * *                                 * * * * *
+%debug%.
+
+%debug% Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+
+  %debug% Terminates script execution
+  GOTO :EOF
+ )
+%debug%.
+
+%debug% Set variable expansion to be delayed until execution time
+SETLOCAL ENABLEDELAYEDEXPANSION
+%debug%.
+
+%debug% Display title in Windows command console's title bar
+TITLE = - - - - - - - - - - - - - - BLANK SCRIPT - - - - - - - - - - - - - -
+%debug%.
+
+%debug% Set the color scheme to grey on black
+COLOR 07
+%debug%.
+
+%debug%               * * * * *                           * * * * *
+%debug%              * * * * * * Main Processing Section * * * * * *
+%debug%               * * * * *                           * * * * *
+%debug%.
+
+%debug%               * * * * *                     * * * * *
+%debug%              * * * * * * Procedure Section * * * * * *
+%debug%               * * * * *                     * * * * *
+%debug%.
+
+%debug%               * * * * *                      * * * * *
+%debug%              * * * * * * Subroutine Section * * * * * *
+%debug%               * * * * *                      * * * * *
+%debug%.
