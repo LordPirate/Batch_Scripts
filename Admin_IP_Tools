@@ -1,0 +1,550 @@
+@ECHO off
+
+REM ******************************************************************************
+REM 
+REM Script Name: adminiptools.bat
+REM Author: Gregory B. Smith
+REM Date: 04-19-2014
+REM
+REM Description: This Windows shell script controls the output of the variations
+REM of ipconfig.exe and other routing options handled by the Windows command
+REM console. It also allows you to store the results in C:\Scripts\network1.txt.
+REM
+REM ******************************************************************************
+
+REM       * * * * *                                 * * * * *
+REM      * * * * * * Script Initialization Section * * * * * *
+REM       * * * * *                                 * * * * *
+
+REM Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+  GOTO :EOF
+ )
+
+REM Sets title of the window
+TITLE = - - - - - - - - - - - - - - ADMIN IP AND ROUTING TOOLS - - - - - - - - - - - - - -
+
+REM Set the color scheme to grey on black
+COLOR 07
+
+REM Creates a text file for admin report
+SET report=C:\Scripts\network1.txt
+ECHO. > %report%
+ECHO    * * * ADMIN IP AND ROUTING REPORT * * * >> %report%
+ECHO. >> %report%
+ECHO -------------------------------------------------------------- >> %report%
+
+
+REM       * * * * *                           * * * * *
+REM      * * * * * * Main Processing Section * * * * * *
+REM       * * * * *                           * * * * *
+
+
+REM Call the procedure that displays the main menu
+CALL :MainMenu
+
+REM Terminates the script's execution
+GOTO :EOF
+
+
+REM       * * * * *                     * * * * *
+REM      * * * * * * Procedure Section * * * * * *
+REM       * * * * *                     * * * * *
+
+
+REM This procedure displays the main menu
+:MainMenu
+
+  REM Clears out variable
+  SET option=""
+
+  REM Clears the display
+  CLS
+
+  ECHO.
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO                       M A I N   M E N U
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO.
+  ECHO            1.   [ IP CONFIGURATION TOOLS ]
+  ECHO.
+  ECHO            2.   [ ROUTING TOOLS ]
+  ECHO.
+  ECHO            3.   [ EXIT ]
+
+  REM Adds nine blank lines to the display
+  FOR /L %%i IN (1,1,9) DO ECHO.
+
+  REM Prompts the user to choose a numbered option
+  SET /P option=   Choose an option(number): 
+
+  REM Determine what the user wants to do based on input
+  IF /I %option% == 1 CLS & CALL :IPMenu
+  IF /I %option% == 2 CLS & CALL :RoutingMenu
+  IF /I %option% == 3 CLS & GOTO :EOF
+
+  REM Refresh main menu on return or if input is not valid
+  GOTO :MainMenu
+
+  REM Terminates this procedure
+  GOTO :EOF
+
+REM This procedure displays the IP Configuration Tools menu
+:IPMenu
+
+  REM Clears out variable
+  SET option=""
+
+  REM Clears the display
+  CLS
+
+  ECHO.
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO           I P  C O N F I G U R A T I O N  T O O L S
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO.
+  ECHO            1.   [ IPCONFIG ]
+  ECHO.
+  ECHO            2.   [ IPCONFIG /ALL ]
+  ECHO.
+  ECHO            3.   [ IPCONFIG /RELEASE ]
+  ECHO.
+  ECHO            4.   [ IPCONFIG /RENEW ]
+  ECHO.
+  ECHO            5.   [ IPCONFIG /FLUSHDNS ]
+  ECHO.
+  ECHO.           6.   [ RETURN TO MAIN MENU ]
+
+  REM Adds three blank lines to the display
+  FOR /L %%i IN (1,1,3) DO ECHO.
+
+  REM Prompts the user to choose a numbered option
+  SET /P option=   Choose an option(number): 
+
+  REM Determine what the user wants to do based on input
+  IF /I %option% == 1 CLS & CALL :IPCon
+  IF /I %option% == 2 CLS & CALL :IPConAll
+  IF /I %option% == 3 CLS & CALL :IPConRelease
+  IF /I %option% == 4 CLS & CALL :IPConRenew
+  IF /I %option% == 5 CLS & CALL :IPConFlushDNS
+  IF /I %option% == 6 CLS & GOTO :EOF
+
+  REM Refresh ip menu on return or if input is not valid
+  GOTO :IPMenu
+
+  REM Terminates this procedure
+  GOTO :EOF
+
+REM This procedure displays the routing menu
+:RoutingMenu
+
+  REM Clears out variable
+  SET option=""
+
+  REM Clears the display
+  CLS
+
+  ECHO.
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO                   R O U T I N G  T O O L S
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO.
+  ECHO            1.   [ PING [DESTINATION] ]
+  ECHO.
+  ECHO            2.   [ TRACERT [DESTINATION] ]
+  ECHO.
+  ECHO            3.   [ PATHPING [DESTINATION] ]
+  ECHO.
+  ECHO            4.   [ RETURN TO MAIN MENU ]
+
+  REM Adds seven blank lines to the display
+  FOR /L %%i IN (1,1,7) DO ECHO.
+
+  REM Prompts the user to choose a numbered option
+  SET /P option=   Choose an option(number): 
+
+  REM Determine what the user wants to do based on input
+  IF /I %option% == 1 CLS & CALL :Ping
+  IF /I %option% == 2 CLS & CALL :TracerT
+  IF /I %option% == 3 CLS & CALL :PathPing
+  IF /I %option% == 4 CLS & GOTO :EOF
+
+  REM Refresh routing menu on return or if input is not valid
+  GOTO :RoutingMenu
+
+  REM Terminates this procedure
+  GOTO :EOF
+
+
+REM       * * * * *                      * * * * *
+REM      * * * * * * Subroutine Section * * * * * *
+REM       * * * * *                      * * * * *
+
+
+REM This subroutine displays the default ip configuration
+:IPCon
+
+  REM Sets subroutine variables
+  SET reply=n
+  SET ipcon=ipconfig.exe
+
+  ECHO.
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO           I P  C O N F I G U R A T I O N  T O O L S
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO                         - IPCONFIG -
+  ECHO.
+
+  REM Displays the results of ipconfig.exe
+  %ipcon%
+  ECHO.
+
+  REM Waits for the user to press any key
+  PAUSE
+  ECHO.
+
+  REM Prompts the user if they want to save results
+  SET /P reply=   Would you like to save these results? (y/n) 
+
+  REM Stores results in report location
+  IF /I %reply% == y  (
+    ECHO. >> %report%
+    ECHO    DEFAULT IP CONFIGURATION >> %report%
+    ECHO. >> %report%
+    %ipcon% >> %report%
+    ECHO -------------------------------------------------------------- >> %report%
+  ) ELSE  (
+    GOTO :EOF
+  )
+
+  REM Terminates subroutine
+  GOTO :EOF
+
+REM This subroutine displays the detailed ip configuration
+:IPConAll
+
+  REM Sets subroutine variables
+  SET reply=n
+  SET ipconall=ipconfig.exe /all
+
+  ECHO.
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO           I P  C O N F I G U R A T I O N  T O O L S
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO                      - IPCONFIG /ALL -
+  ECHO.
+
+  REM Displays the results of ipconfig.exe /all
+  %ipconall%
+  ECHO.
+
+  REM Waits for the user to press any key
+  PAUSE
+  ECHO.
+
+  REM Prompts the user if they want to save results
+  SET /P reply=   Would you like to save these results? (y/n) 
+
+  REM Stores results in report location
+  IF /I %reply% == y  (
+    ECHO. >> %report%
+    ECHO    DETAILED IP CONFIGURATION >> %report%
+    ECHO. >> %report%
+    %ipconall% >> %report%
+    ECHO -------------------------------------------------------------- >> %report%
+  ) ELSE  (
+    GOTO :EOF
+  )
+
+  REM Terminates subroutine
+  GOTO :EOF
+
+REM This subroutine displays the release of ip addresses
+:IPConRelease
+
+  REM Sets subroutine variables
+  SET reply=n
+  SET ipconrelease=ipconfig.exe /release
+
+  ECHO.
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO           I P  C O N F I G U R A T I O N  T O O L S
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO                    - IPCONFIG /RELEASE -
+  ECHO.
+
+  REM Displays the results of ipconfig.exe /release
+  %ipconrelease%
+  ECHO.
+
+  REM Waits for the user to press any key
+  PAUSE
+  ECHO.
+
+  REM Prompts the user if they want to save results
+  SET /P reply=   Would you like to save these results? (y/n) 
+
+  REM Stores results in report location
+  IF /I %reply% == y  (
+    ECHO. >> %report%
+    ECHO    IP ADDRESS RELEASED >> %report%
+    ECHO. >> %report%
+    %ipconrelease% >> %report%
+    ECHO -------------------------------------------------------------- >> %report%
+  ) ELSE  (
+    GOTO :EOF
+  )
+
+  REM Terminates subroutine
+  GOTO :EOF
+
+REM This subroutine displays the renewal of ip addresses
+:IPConRenew
+
+  REM Sets subroutine variables
+  SET reply=n
+  SET ipconrenew=ipconfig.exe /renew
+
+  ECHO.
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO           I P  C O N F I G U R A T I O N  T O O L S
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO                     - IPCONFIG /RENEW -
+  ECHO.
+
+  REM Displays the results of ipconfig.exe /renew
+  %ipconrenew%
+  ECHO.
+
+  REM Waits for the user to press any key
+  PAUSE
+  ECHO.
+
+  REM Prompts the user if they want to save results
+  SET /P reply=   Would you like to save these results? (y/n) 
+
+  REM Stores results in report location
+  IF /I %reply% == y  (
+    ECHO. >> %report%
+    ECHO    IP ADDRESS RENEWED >> %report%
+    ECHO. >> %report%
+    %ipconrenew% >> %report%
+    ECHO -------------------------------------------------------------- >> %report%
+  ) ELSE  (
+    GOTO :EOF
+  )
+
+  REM Terminates subroutine
+  GOTO :EOF
+
+REM This subroutine displays the flushdns command
+:IPConFlushDNS
+
+  REM Sets subroutine variables
+  SET reply=n
+  SET ipconflush=ipconfig.exe /flushdns
+
+  ECHO.
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO           I P  C O N F I G U R A T I O N  T O O L S
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO                    - IPCONFIG /FLUSHDNS -
+  ECHO.
+
+  REM Displays the results of ipconfig.exe /flushdns
+  %ipconflush%
+  ECHO.
+
+  REM Waits for the user to press any key
+  PAUSE
+  ECHO.
+
+  REM Prompts the user if they want to save results
+  SET /P reply=   Would you like to save these results? (y/n) 
+
+  REM Stores results in report location
+  IF /I %reply% == y  (
+    ECHO. >> %report%
+    %ipconflush% >> %report%
+    ECHO -------------------------------------------------------------- >> %report%
+  ) ELSE  (
+    GOTO :EOF
+  )
+
+  REM Terminates subroutine
+  GOTO :EOF
+
+REM This subroutine displays the ping command
+:Ping
+
+  REM Sets subroutine variables
+  SET reply=n
+  SET dest=YAHOO.COM
+
+  ECHO.
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO                   R O U T I N G  T O O L S
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO                    - PING [DESTINATION] -
+  ECHO.
+
+  REM Prompts user to enter ping destination
+  SET /P dest=   Enter destination of ping(default=YAHOO.COM): 
+  ECHO.
+
+  REM Stores and displays ping results
+  SET pingdest=ping %dest%
+  %pingdest%
+  ECHO.
+
+  REM Waits for the user to press any key
+  PAUSE
+  ECHO.
+
+  REM Prompts the user if they want to save results
+  SET /P reply=   Would you like to save these results? (y/n) 
+
+  REM Stores results in report location
+  IF /I %reply% == y  (
+    ECHO. >> %report%
+    %pingdest% >> %report%
+    ECHO -------------------------------------------------------------- >> %report%
+  ) ELSE  (
+    GOTO :EOF
+  )
+
+  REM Terminates subroutine
+  GOTO :EOF
+
+REM This subroutine displays the tracert command
+:TracerT
+
+  REM Sets subroutine variables
+  SET reply=n
+  SET dest=YAHOO.COM
+
+  ECHO.
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO                   R O U T I N G  T O O L S
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO                  - TRACERT [DESTINATION] -
+  ECHO.
+
+  REM Prompts user to enter tracert destination
+  SET /P dest=   Enter destination of tracert(default=YAHOO.COM): 
+  ECHO.
+
+  REM Stores and displays ping results
+  SET tracertdest=tracert %dest%
+  %tracertdest%
+  ECHO.
+
+  REM Waits for the user to press any key
+  PAUSE
+  ECHO.
+
+  REM Prompts the user if they want to save results
+  SET /P reply=   Would you like to save these results? (y/n) 
+
+  REM Stores results in report location
+  IF /I %reply% == y  (
+    ECHO. >> %report%
+    %tracertdest% >> %report%
+    ECHO -------------------------------------------------------------- >> %report%
+  ) ELSE  (
+    GOTO :EOF
+  )
+
+  REM Terminates subroutine
+  GOTO :EOF
+
+REM This subroutine displays the pathping command
+:PathPing
+
+  REM Sets subroutine variables
+  SET reply=n
+  SET dest=YAHOO.COM
+
+  ECHO.
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO                   R O U T I N G  T O O L S
+  ECHO.
+  ECHO    -------------------------------------------------------
+  ECHO.
+  ECHO                  - PATHPING [DESTINATION] -
+  ECHO.
+
+  REM Prompts user to enter pathping destination
+  SET /P dest=   Enter destination of pathping(default=YAHOO.COM): 
+  ECHO.
+
+  REM Stores and displays pathping results
+  SET pathpingdest=pathping %dest%
+  %pathpingdest%
+  ECHO.
+
+  REM Waits for the user to press any key
+  PAUSE
+  ECHO.
+
+  REM Prompts the user if they want to save results
+  SET /P reply=   Would you like to save these results? (y/n) 
+
+  REM Stores results in report location
+  IF /I %reply% == y  (
+    ECHO. >> %report%
+    %pathpingdest% >> %report%
+    ECHO -------------------------------------------------------------- >> %report%
+  ) ELSE  (
+    GOTO :EOF
+  )
+
+  REM Terminates subroutine
+  GOTO :EOF
