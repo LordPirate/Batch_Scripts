@@ -1,0 +1,70 @@
+@ECHO Off
+
+TITLE "The Second KnockKnock joke game!"
+
+COLOR 8A
+
+CLS
+
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+SET /p reply="KnockKnock!   C:>"
+
+CLS
+
+IF NOT %reply% == "Who is there?" (
+  ECHO "Oops, you did not input the correct response!"
+  PAUSE >NUL
+  GOTO :EOF)
+
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+SET /p reply="Banana!         C:>"
+
+CLS
+
+IF NOT %reply% == "Banana who?" (
+  ECHO "Oops, you did not input the correct response!"
+  GOTO :EOF)
+
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+ECHO "Banana is not the same as Orange now is it?"
+
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
