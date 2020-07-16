@@ -1,0 +1,60 @@
+@ECHO off
+
+REM ******************************************************************************
+REM
+REM Script Name: TimePlayed.bat
+REM Author: Vearmi Pone
+REM Date: 04-19-2014
+REM
+REM Description: 
+REM
+REM ******************************************************************************
+
+REM *** Script Initialization Section ***
+
+REM Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+  GOTO :EOF
+ )
+
+REM *** Main Processing Section ***
+
+REM Sets starting play time in seconds
+SET /A sth1 = %time:~0,1%
+SET /A sth2 = %time:~1,1%
+SET /A stm1 = %time:~3,1%
+SET /A stm2 = %time:~4,1%
+SET /A sts1 = %time:~6,1%
+SET /A sts2 = %time:~7,1%
+SET /A sth1 = %sth1% * 36000
+SET /A sth2 = %sth2% * 3600
+SET /A stm1 = %stm1% * 600
+SET /A stm2 = %stm2% * 60
+SET /A sts1 = %sts1% * 10
+SET /A tst = %sth1% + %sth2% + %stm1% + %stm2% + %sts1% + %sts2%
+
+REM Sets ending play time in seconds and calculates total play time
+SET /A eth1 = %time:~0,1%
+SET /A eth2 = %time:~1,1%
+SET /A etm1 = %time:~3,1%
+SET /A etm2 = %time:~4,1%
+SET /A ets1 = %time:~6,1%
+SET /A ets2 = %time:~7,1%
+SET /A eth1 = %eth1% * 36000
+SET /A eth2 = %eth2% * 3600
+SET /A etm1 = %etm1% * 600
+SET /A etm2 = %etm2% * 60
+SET /A ets1 = %ets1% * 10
+SET /A tet = %eth1% + %eth2% + %etm1% + %etm2% + %ets1% + %ets2%
+SET /A ttp = %tet% - %tst%
+
+ECHO %ttp% seconds
+
+pause
+
+REM *** Subroutine and Procedure Section ***
