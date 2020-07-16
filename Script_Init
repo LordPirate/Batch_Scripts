@@ -1,0 +1,36 @@
+@ECHO off
+REM **********************************************************************
+REM
+REM Script Name: ScriptInit.bat
+REM Author: Vearmi Pone
+REM Date: 03-29-2014
+REM
+REM Description: Customize a Windows shell scripting work environment
+REM
+REM **********************************************************************
+
+REM Script Initialization Section
+
+REM Modify the Windows command console title bar
+TITLE = Script Environment Configuration
+
+REM Set background color to white and foreground color to black
+COLOR F0
+
+REM Add C:\Scripts to the begining of the search path
+PATH C:\Scripts;%path%
+
+REM Modify the command prompt to display the greater than sign
+PROMPT $G
+
+REM Main Processing Section
+
+REM Clear the screen
+CLS
+
+REM Tells the user that everything is set up
+ECHO Script environment initialization complete
+
+PAUSE
+
+REM Subroutine and Procedure Section
