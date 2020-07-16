@@ -1,0 +1,33 @@
+@ECHO off
+
+REM      FOR STATEMENT IS FOR ANIMATION -BOTTOM TO CENTER-
+
+FOR %%a IN (1,1,25) DO ECHO.
+ECHO.
+ECHO                    -TITLE LINE-
+ECHO                     -TITLE LINE-
+ECHO                      -TITLE LINE-
+ECHO                     _____________
+ECHO                    /             \
+ECHO                   /  ___________  \
+ECHO                   ||/|-|-|-|-|-|\||
+ECHO                   |||-|-|-|-|-|-|||
+ECHO                   ||-|-|-|-|-|-|-||
+ECHO                   |||-|-|-|-|-|-|||
+ECHO                   ||-|-|-|-|-|-|-||
+ECHO                   |||-|-|-|-|-|-|||
+ECHO                   ||-|-|-|-|-|-|-||
+ECHO                   |||-|-|-|-|-|-|||
+ECHO                   ||-|-|-|-|-|-|-||
+ECHO                  //|._._._._._._.|\\
+ECHO                 //|---------------|\\
+ECHO                //|-----------------|\\
+ECHO               ||---------------------||
+ECHO         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ECHO.
+ECHO                     -MENU LINE-
+
+REM      TITLE DISPLAYS AFTER -BOTTOM TO CENTER- ANIMATION
+REM          MENU LINE DISPLAYS AFTER PAUSE FUNCTION
+
+PAUSE
