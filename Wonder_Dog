@@ -1,0 +1,452 @@
+@ECHO off
+
+REM ******************************************************************************
+REM
+REM Script Name: WonderDog.bat
+REM Author: Vearmi Pone
+REM Date: 04-09-2014
+REM
+REM Description: This Windows shell script tells the story of "Buzz the Wonder
+REM Dog" using input provided by the reader.
+REM
+REM ******************************************************************************
+
+REM Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+  GOTO :EOF
+ )
+
+REM Set the color scheme to yellow on black
+COLOR 0A
+
+REM Clears the screen
+CLS
+
+REM Sets the title of the window
+TITLE = THE STORY OF THE WONDER DOG
+
+REM Displays the welcome screen
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO  W E L C O M E  T O  T H E ...........
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO  S T O R Y  O F  T H E  W O N D E R  D O G !
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for player to push any key
+PAUSE
+
+REM Clears the screen
+CLS
+
+REM Let player know that their help is needed
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO Your help is needed to tell this story. All that you have to do is
+ECHO.
+ECHO answer a few simple questions.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for the player to push any key
+PAUSE
+
+REM Clears the screen
+CLS
+
+REM Collect key story elements from the player
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Collect the name of Buzz's owner
+SET /p player=1. What is your name? 
+
+ECHO.
+
+REM Collect the name of the wonder dog
+SET /p wonderdog=2. Give your dog a name: 
+
+ECHO.
+
+REM Collect the name of player's hangout
+SET /p hangout=3. Where is your favorite place to hang out? 
+
+ECHO.
+
+REM Collect the piece of clothing Buzz grabs to save owner
+SET /p clothes=4. Name of a piece of clothing: 
+
+ECHO.
+
+REM Collect vehicle that almost runs over Buzz's owner
+SET /p vehicle=5. Name a type of 4-wheel motor vehicle: 
+
+ECHO.
+
+REM Collect body part Buzz grabs to save owner
+SET /p bodypart=6. Name a part of the human body: 
+
+ECHO.
+
+REM Collect what type of animal almost runs over Buzz's owner
+SET /p animal=7. What is your favorite animal? 
+
+ECHO.
+ECHO.
+ECHO These look like really good answers. Now, let's get on with the story.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for player to push any key
+PAUSE
+
+REM Clears the screen
+CLS
+
+REM Displays story with player input
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO Once upon a time, there lived a very special little dog called %wonderdog%.
+ECHO.
+ECHO %wonderdog%'s best friend was his owner, %player%. %wonderdog% and %player% went everywhere
+ECHO.
+ECHO together. Sunday was their favorite day to spend together because on
+ECHO.
+ECHO that day they would play down by the %hangout%.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for player to push any key
+PAUSE
+
+REM Clears the screen
+CLS
+
+REM Displays story with player input
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO On one particularly hot summer Sunday, %wonderdog% and %player% were walking down
+ECHO.
+ECHO the side of an old dirt road on their way to the %hangout% when
+ECHO.
+ECHO suddenly %wonderdog% stopped and spun around, grabbing %player%'s %clothes%,
+ECHO.
+ECHO dragging %player% off the road down into the ditch. A split second later,
+ECHO.
+ECHO a big red %vehicle% came tearing by out of control, running right over the
+ECHO.
+ECHO stretch of the road where %wonderdog% and %player% had been walking.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for player to push any key
+PAUSE
+
+REM Clears the screen
+CLS
+
+REM Displays story with player input
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO "Good boy," said %player%. "You really saved me that time %wonderdog%. But what
+ECHO.
+ECHO about the man in that %vehicle%? If he doesn't slow down quickly, he'll never
+ECHO.
+ECHO make the turn at the %hangout%!" %player% stared as the %vehicle% barreled
+ECHO.
+ECHO down the road. When %player% looked back to see %wonderdog%, the four-legged friend
+ECHO.
+ECHO was gone.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for player to push any key
+PAUSE
+
+REM Clears the screen
+CLS
+
+REM Displays story with player input
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO Moments later, as the %vehicle% was about to crash into the grove, %wonderdog%
+ECHO.
+ECHO leaped off of the top of a large boulder and onto the top of the
+ECHO.
+ECHO %vehicle%. He then squeezed his way through an opening in the back of the
+ECHO.
+ECHO %vehicle% and found that the driver was unconscious.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for player to push any key
+PAUSE
+
+REM Clears the screen
+CLS
+
+REM Displays story with player input
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO Thinking quickly, %wonderdog% pulled the driver out of the way and took over
+ECHO.
+ECHO at the wheel, quickly applying the brakes and stopping the %vehicle%
+ECHO.
+ECHO just inches before it reached the edge of the %hangout%. The quick-
+ECHO.
+ECHO thinking %wonderdog% saw that the man was not breathing and began pulling
+ECHO.
+ECHO him out of the %vehicle%.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for player to push any key
+PAUSE
+
+REM Clears the screen
+CLS
+
+REM Displays story with player input
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO By the time %player% arrived a few minutes later, the man had
+ECHO.
+ECHO revived and was sitting upright on the ground, petting %wonderdog% as the
+ECHO.
+ECHO dog licked his face. "This here your dog?" the driver said. "Yes sir,"
+ECHO.
+ECHO said %player% with a great big smile. "Well, it looks like I owe you a lot.
+ECHO.
+ECHO Your dog just saved my life. Had he not given me CPR, I think I'd have
+ECHO.
+ECHO been a goner for sure!" said the driver.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for player to push any key
+PAUSE
+
+REM Clears the screen
+CLS
+
+REM Displays story with player input
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO "Wow!" said %player%, running over to hug his four-legged friend. Just then
+ECHO.
+ECHO %wonderdog% unexpectedly leaped up, grabbing %player% by the %bodypart%, tossing %player%
+ECHO.
+ECHO clear of the dirt path that %player% had been running on. Moments later, a
+ECHO.
+ECHO big white %animal% came scurrying down that very path, and %wonderdog% the Wonder
+ECHO.
+ECHO Dog ran after it. "I hope that %animal% will be OK" said the driver.
+ECHO.
+ECHO "Don't worry" said %player%, "%wonderdog% will save him......"
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for player to push any key
+PAUSE
+
+REM Clears the screen
+CLS
+
+REM Displays story with player input
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO As %wonderdog% chased the %animal% down the dirt path, he started barking as if he
+ECHO.
+ECHO had known this %animal% from a past experience. The %animal% started to slow
+ECHO.
+ECHO down as if hearing a familiar sound. Moments later the %animal% had slowed
+ECHO.
+ECHO down to walking speed which helped %wonderdog% catch up to it. As the %animal% turned
+ECHO.
+ECHO around to see what was so familiar, %wonderdog% jumped off of the path and onto the
+ECHO.
+ECHO %animal%'s back.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for player to push any key
+PAUSE
+
+REM Clears the screen
+CLS
+
+REM Displays story with player input
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO "%wonderdog%!!!" shouted the %animal% as he danced around with the little dog on his
+ECHO.
+ECHO back. "I'm so glad to see you again." "Me too," said %wonderdog% as he climbed down
+ECHO.
+ECHO back onto the dirt path. "How have you been?" questioned %wonderdog%. "I've been good,
+ECHO.
+ECHO just out getting in my daily run. Sorry I almost ran over your friend.
+ECHO.
+ECHO Sometimes I just get going and can't stop myself." said the %animal% as he
+ECHO.
+ECHO was trying to catch his breath. "No worries, it's all good. I, Buzz the Wonder
+ECHO.
+ECHO Dog, saved the day as usual" said %wonderdog%.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for player to push any key
+PAUSE
+
+REM Clears the screen
+CLS
+
+REM Displays story with player input
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO               T H E  E N D .....
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+
+REM Waits for player to push any key
+PAUSE
