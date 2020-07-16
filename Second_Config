@@ -1,0 +1,36 @@
+@ECHO off
+
+REM ******************************************************************************
+REM
+REM Script Name: secondconfig.bat
+REM Author: Vearmi Pone
+REM Date: 04-11-2014
+REM
+REM Description: 
+REM
+REM ******************************************************************************
+
+REM *** Script Initialization Section ***
+
+REM Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+  GOTO :EOF
+ )
+
+REM *** Main Processing Section ***
+
+CLS
+TITLE Demo - Manipulating the Windows console environment - %TestVariable%
+COLOR 0E
+ECHO Hello. It is good to be working with you today!
+ECHO.
+PROMPT $d$g
+
+PAUSE
+
+REM *** Subroutine and Procedure Section ***
