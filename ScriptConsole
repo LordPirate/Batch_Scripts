@@ -1,0 +1,64 @@
+@ECHO off
+
+REM ******************************************************************************
+REM
+REM Script Name: ScriptConsole.bat
+REM Author: Vearmi Pone
+REM Date: 04-11-2014
+REM
+REM Description: Displays all scripts in C:\Scripts
+REM
+REM ******************************************************************************
+
+REM *** Script Initialization Section ***
+
+REM Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+  GOTO :EOF
+ )
+
+REM Sets title of the window
+TITLE   -- Windows Shell Script Console --
+
+REM Set the color scheme to yellow on black
+COLOR 27
+
+REM *****Main Processing Section*****
+
+REM Creates a return point
+:DisplayConsole
+
+  REM Displays all scripts on screen
+  ECHO.
+  ECHO --------------------------------------------------------------------------
+  ECHO.
+  ECHO                         Windows Shell Scripts Console
+  ECHO.
+
+  REM Displays all scripts except this one
+  FOR %%I IN (*.bat *.cmd) DO  (
+    IF NOT %%I == ScriptConsole.bat ECHO     %%I
+  )
+
+  ECHO.
+  ECHO --------------------------------------------------------------------------
+  ECHO.
+
+  REM Prompts the user to input script to execute
+  SET /p response= Enter script name and any required arguments: 
+
+  REM Starts script user requested
+  START %response%
+
+REM Clears the screen
+CLS
+
+REM Returns to main console display
+GOTO :DisplayConsole
+
+REM *****Subroutine and Procedure Section*****
