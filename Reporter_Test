@@ -1,0 +1,34 @@
+@ECHO off
+REM **********************************************************************
+REM
+REM Script Name: Reporter.bat
+REM Author: Vearmi Pone
+REM Date: 03-29-2014
+REM
+REM Description: A report generation sample
+REM
+REM **********************************************************************
+
+REM Script Initialization Section
+
+REM Specify folder where report is to be saved
+SET dest=C:\Scripts\LogFiles\Sample.txt
+
+REM Display report data
+ECHO Sample Windows shell script report > %dest%
+ECHO. >> %dest%
+ECHO Date: %date% >> %dest%
+ECHO. >> %dest%
+ECHO Created by %username% >> %dest%
+ECHO. >> %dest%
+ECHO. >> %dest%
+Echo Scripts residing in C:\Scripts: >> %dest%
+ECHO --------------------------------------------------------------- >> %dest%
+ECHO. >> %dest%
+
+DIR *.bat >> %dest%
+
+REM Notify user that the report is now ready
+ECHO Sample.txt report has been created in %dest%
+
+PAUSE
