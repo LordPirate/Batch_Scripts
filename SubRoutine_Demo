@@ -1,0 +1,82 @@
+@ECHO off
+
+REM ******************************************************************************
+REM
+REM Script Name: subroudemo.bat
+REM Author: Vearmi Pone
+REM Date: 04-19-2014
+REM
+REM Description: This Windows shell script alows the user to delete or rename
+REM files located in the C:\Temp folder or to exit if they changed their mind
+REM
+REM ******************************************************************************
+
+REM *** Script Initialization Section ***
+
+REM Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+  GOTO :EOF
+ )
+
+REM Sets title of the window
+TITLE = Subroutine Demo - C:\Temp Options
+
+REM Set the color scheme to yellow on black
+COLOR 27
+
+REM Clears the screen
+CLS
+
+REM *** Main Processing Section ***
+
+REM Displays main screen text and options
+FOR /L %%i IN (1,1,4) DO ECHO.
+ECHO This script maintains the C:\Temp folder.
+FOR /L %%i IN (1,1,16) DO ECHO.
+ECHO Options: [Delete] [Remane] [Exit]
+ECHO.
+
+REM Prompts player to choose an option
+SET /P reply=What do you want to do to its contents? 
+
+REM If user wants to delete all files, goes to DeleteFiles section
+IF /I %reply%==Delete  (
+  GOTO :DeleteFiles
+)
+
+REM If user wants to rename all files, go to RenameFiles section
+IF /I %reply%==Rename  (
+  GOTO :RenameFiles
+)
+
+REM If user wants to exit script, go to Exit section
+IF /I %reply%==Exit  (
+  GOTO :Exit
+)
+
+REM Ends execution of script
+GOTO :EOF
+
+REM *** Subroutine and Procedure Section ***
+
+REM Deletes all files and ends script
+:DeleteFiles
+  ECHO Deleting all files stored in C:\Temp
+  DEL C:\Temp\*.*
+GOTO :EOF
+
+REM Renames all files and ends script
+:RenameFiles
+  ECHO Renaming all files stored in C:\Temp
+  REN C:\Temp\*.* *.bak
+GOTO :EOF
+
+REM Deletes all files and ends script
+:Exit
+  ECHO Terminating script execution
+GOTO :EOF
