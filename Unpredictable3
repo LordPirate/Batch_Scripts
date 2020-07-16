@@ -1,0 +1,60 @@
+@ECHO off
+
+REM ******************************************************************************
+REM
+REM Script Name: UCP3.bat
+REM Author: Vearmi Pone
+REM Date: 04-19-2014
+REM
+REM Description: This Windows shell script randomly adjusts the Windows shell
+REM working environment
+REM
+REM ******************************************************************************
+
+REM *** Script Initialization Section ***
+
+REM Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+  GOTO :EOF
+ )
+
+REM Clears the screen
+CLS
+
+REM *** Main Processing Section ***
+
+REM Run the GetRandomVariable procedure and return
+CALL :GetRandomVariable
+
+REM If the random variable is greater than 22000 then run the first configuration
+IF %TestVariable% GTR 22000 (
+  CALL FirstConfig.bat
+  ECHO Configuration now set.
+  GOTO :EOF
+)
+
+REM If the random variable is greater than 11000 then run the second configuration
+IF %TestVariable% GTR 11000 (
+  CALL SecondConfig.bat
+  ECHO Configuration now set.
+  GOTO :EOF
+)
+
+REM If the random variable is greater than 0 then run the third configuration
+IF %TestVariable% GTR 0 (
+  CALL ThirdConfig.bat
+  ECHO Configuration now set.
+  GOTO :EOF
+)
+
+REM *** Subroutine & Procedure Section ***
+
+REM Creates a procedure to produce a random variable
+:GetRandomVariable
+  SET TestVariable=%random%
+GOTO :EOF
