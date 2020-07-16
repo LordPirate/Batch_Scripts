@@ -1,0 +1,178 @@
+@ECHO off
+
+REMe Set toggle between execution mode and debug mode
+IF /I "%1"=="Debug"  (SET debug=ECHO) ELSE (SET debug=REMe)
+
+%debug%.
+%debug%                          - - - - - - - - - - - - - - -
+%debug%                         - -   D E B U G   M O D E   - -
+%debug%                          - - - - - - - - - - - - - - -
+%debug%.
+
+%debug% *******************************************************************************
+%debug%.
+%debug% [ SCRIPT NAME ] = MapNtwkDrive.bat
+%debug%.
+%debug% [ AUTHOR(S) ] = Gregory Barret Smith
+%debug%.
+%debug% [ DATE CREATED ] = 30 March 2014
+%debug%.
+%debug% [ DATE LAST MODIFIED ] = 24 April 2014
+%debug%.
+%debug% [ DESCRIPTION ] = This Windows shell script 
+%debug%                   
+%debug%.
+%debug% *******************************************************************************
+%debug%.
+
+%debug%              * * * * *                                 * * * * *
+%debug%             * * * * * * Script Initialization Section * * * * * *
+%debug%              * * * * *                                 * * * * *
+%debug%.
+
+%debug% Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+  GOTO :EOF
+)
+%debug%.
+
+%debug% Set variable delay so they expand at execution time not parse time
+SETLOCAL ENABLEDELAYEDEXPANSION
+%debug%.
+
+%debug% Define a variable that specifies the drive letter to be used
+SET DriveLetter=X:
+
+%debug% Define a variable that specifies the location of the network drive
+SET NetworkDrive=\\IE6WINXP\C
+
+%debug% Display the name of the script in the Windows command console's title bar
+TITLE = MapNtwkDrive.bat
+
+%debug% Set the color scheme to yellow on black
+COLOR 0E
+
+%debug% * * * * * Main Processing Section * * * * * *
+
+%debug% Call the procedure that displays an intro message
+CALL :DisplayUserMsg
+
+%debug% Call a procedure that creates the network drive connection
+CALL :EstablishConnection
+
+%debug% Determine if an error occured
+If %ERRORLEVEL%==0  (
+
+  %debug% If an error did not occur, then prompt the user to verify that the
+  %debug% mapped drive connection was created
+  CALL :VerifyConnection
+
+  %debug% Call the procedure that disconnects the network drive connection
+  CALL :BreakConnection
+
+)
+
+GOTO :EOF
+
+%debug%       * * * * *                           * * * * *
+%debug%      * * * * * * Main Processing Section * * * * * *
+%debug%       * * * * *                           * * * * *
+
+%debug% Display an intro message
+:DisplayUserMsg
+
+  CLS
+
+  ECHO.
+  ECHO.
+  ECHO Connecting to and disconnecting from network drive
+  ECHO.
+  ECHO.
+
+  PAUSE
+
+  %debug% Terminates script execution.
+  GOTO :EOF
+
+%debug% Set up a connection to the specified network drive
+:EstablishConnection
+
+  CLS
+
+  ECHO.
+  ECHO Issuing NET USE Command
+  ECHO.
+
+  %debug% Use the NET USE command to connect to the specified network drive
+  %debug% and set up a connection using the specified drive letter
+  NET USE %DriveLetter% %NetworkDrive%
+
+  IF ERRORLEVEL 1  (
+
+    ECHO.
+    ECHO.
+    ECHO Error occured setting up network drive connection.
+    ECHO.
+    ECHO.
+
+    PAUSE
+
+  )
+
+  GOTO :EOF
+
+%debug% Prompt the user to check to make sure the drive connection was
+%debug% established
+:VerifyConnection
+
+  ECHO.
+  ECHO.
+  ECHO Please verify that the new network drive connection has been established
+  ECHO before you respond by pressing the a key.
+  ECHO.
+  ECHO.
+  ECHO Instructions :
+  ECHO ------------
+  ECHO.
+  ECHO Click on Start and then My Computer. You should not see a drive
+  ECHO connection labeled X: listed in the Hard Drives section of the
+  ECHO My Computer dialog.
+  ECHO.
+  ECHO.
+
+  PAUSE
+
+GOTO :EOF
+
+%debug% Disconnect the connection to the network drive
+:BreakConnection
+
+  CLS
+
+  %debug% Use the NET USE command to delete the connection as specified by its
+  %debug% drive letter assignment
+  NET USE %DriveLetter% /DELETE
+
+  IF ERRORLEVEL 1  (
+    ECHO.
+    ECHO.
+    ECHO Error occured when disconnecting the network drive connection.
+    ECHO.
+    ECHO.
+  ) ELSE  (
+    ECHO.
+    ECHO.
+    ECHO The network drive connection has been disconnected.
+    ECHO.
+    ECHO.
+  )
+
+%debug% Terminates script execution.
+GOTO :EOF
+
+%debug% ***** Subroutine and Procedure Section *****
