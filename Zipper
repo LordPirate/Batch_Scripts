@@ -1,0 +1,140 @@
+@ECHO off
+
+%debug% Allows user to toggle between execution mode and debug mode
+IF /I "%1"=="debug" (SET debug=ECHO) ELSE (SET debug=%debug%)
+
+%debug%.
+%debug%                          - - - - - - - - - - - - - - -
+%debug%                         - -   D E B U G   M O D E   - -
+%debug%                          - - - - - - - - - - - - - - -
+%debug%.
+
+%debug% *******************************************************************************
+%debug%.
+%debug% [ SCRIPT NAME ] = Zipper.bat
+%debug%.
+%debug% [ AUTHOR(S) ] = Gregory Barret Smith
+%debug%.
+%debug% [ DATE CREATED ] = 24 April 2014
+%debug%.
+%debug% [ DATE LAST MODIFIED ] = 26 April 2014
+%debug%.
+%debug% [ DESCRIPTION ] = This Windows shell script provides the ability to execute
+%debug%                   WinZip to zip all .bat files in C:\Scripts.
+%debug%.
+%debug% *******************************************************************************
+%debug%.
+
+%debug%              * * * * *                                 * * * * *
+%debug%             * * * * * * Script Initialization Section * * * * * *
+%debug%              * * * * *                                 * * * * *
+%debug%.
+
+%debug% Abort Execution if not run on a computer running Windows NT, 2000, XP, or 2003
+IF NOT "%os%" == "Windows_NT"  (
+  ECHO.
+  ECHO.
+  ECHO Unsupported Operating System
+  ECHO.
+  ECHO.
+
+  %debug% Terminates script execution
+  GOTO :EOF
+ )
+%debug%.
+
+%debug% Set variable expansion to be delayed until execution time
+SETLOCAL ENABLEDELAYEDEXPANSION
+%debug%.
+
+%debug% Display title in Windows command console's title bar
+TITLE = - - - - - - - - - - - - - - - - - ZIPPER - - - - - - - - - - - - - - - - -
+%debug%.
+
+%debug% Specify the location where WinZip was installed
+SET InstallLoc=C:\Program Files\WinZip
+
+%debug% Specify the files to be zipped
+SET ScriptFileLoc=C:\Scripts\*.bat
+
+%debug% Specify the name of the Zip file that is to be created
+SET ZipFileName=C:\Scripts\Scripts.zip
+
+%debug% Set the color scheme to grey on black
+COLOR 07
+%debug%.
+
+%debug%               * * * * *                           * * * * *
+%debug%              * * * * * * Main Processing Section * * * * * *
+%debug%               * * * * *                           * * * * *
+%debug%.
+
+%debug% Call the procedure that temporarily adds the WinZip folder to the search path
+CALL :UpdatePath
+
+%debug% Display a message allowing the user an opportunity to halt script execution
+CALL :DisplayWarning
+
+%debug% Call the procedure that creates the new Zip file
+CALL :CreateArchive
+
+%debug% Terminate script execution
+GOTO :EOF
+
+%debug%               * * * * *                     * * * * *
+%debug%              * * * * * * Procedure Section * * * * * *
+%debug%               * * * * *                     * * * * *
+%debug%.
+
+%debug% This procedure adds the WinZip folder to the end of the search path
+:UpdatePath
+
+  SET path=%path%;%InstallLoc%
+
+GOTO :EOF
+
+%debug% This procedure displays a message the gives the user a chance to halt
+%debug% script execution
+:DisplayWarning
+
+  ECHO.
+  ECHO.
+  ECHO This script creates a new Zip file containing copies of all the .bat
+  ECHO script files located in %ScriptFileLoc%.
+  ECHO.
+  ECHO.
+  PAUSE
+
+GOTO :EOF
+
+%debug% This procedure creates the new Zip file
+:CreateArchive
+
+  CLS
+
+  %debug% Execute the WINZIP32.EXE command, run it in minimized mode, and
+  %debug% pass it the name of the Zip file to create and the name and
+  %debug% location of the files to be added to the archive.
+  WINZIP32 -MIN -A $ZipFileName% %ScriptFileLoc%
+
+  %debug% Check for any errors and display the WINZIP32 command exit code if
+  %debug% appropriate.
+  IF ERRORLEVEL 1  (
+    CLS
+    ECHO.
+    ECHO.
+    ECHO An exit code of %ERRORLEVEL% was reported. As a result, the Zip file
+    ECHO was not created.
+    ECHO.
+    ECHO.
+  ) ELSE  (
+    ECHO.
+    ECHO.
+    ECHO A Zip file containing all the scripts located in %ScriptFileLoc% has been
+    ECHO created in %ZipFileName%.
+    ECHO.
+    ECHO.
+  )
+  PAUSE
+
+GOTO :EOF
